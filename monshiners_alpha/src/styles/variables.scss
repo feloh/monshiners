@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;600;700&display=swap');
+
+
+$my-font-family: 'Inconsolata', serif !important;
+$body-font-family: $my-font-family;
+$btn-text-transform: none;
+$card-elevation: 0;
+
+@import "~vuetify/src/styles/styles.sass";
