@@ -1,15 +1,12 @@
-import { responseAdapter as imageResponseAdapter } from './image'
-import { responseAdapter as videoResponseAdapter } from './video'
+import {responseAdapter as imageResponseAdapter} from './image'
+import {responseAdapter as videoResponseAdapter} from './video'
 import api from "@/utils/api"
-
-export const t = {'content_type':'theme'}
 
 export class Theme {
     constructor({
                     id = null,
-                    typ = ``,
-                    vonMonat = 0,
-                    bisMonat = 0,
+                    name = ``,
+                    text = ``,
                     jumbotron = ``,
                     hintergrund = ``,
                     collage = [],
@@ -18,9 +15,8 @@ export class Theme {
                     videoParallaxStandbild = ``
                 } = {}) {
         this.id = id
-        this.typ = typ
-        this.vonMonat = vonMonat
-        this.bisMonat = bisMonat
+        this.name = name
+        this.text = text
         this.jumbotron = jumbotron
         this.hintergrund = hintergrund
         this.collage = collage
@@ -46,12 +42,24 @@ export function responseAdapter(response) {
     const detail = fields.detail
         .map(x => imageResponseAdapter(x, response.includes))
 
-    return new Theme({...fields, ...sys, jumbotron, hintergrund, collage, detail, videoParallax, videoParallaxStandbild})
+    return new Theme({
+        ...fields, ...sys,
+        jumbotron,
+        hintergrund,
+        collage,
+        detail,
+        videoParallax,
+        videoParallaxStandbild
+    })
 }
 
 export default {
-    async get(id)
-    {
-        return responseAdapter(await api.getEntries({'sys.id' : id}))
-    },
+    async get(query) {
+        return responseAdapter(
+            await api.getEntries({
+                'order': 'fields.month',
+                'content_type': 'theme',
+                'locale': query.locale
+            }))
+    }
 };

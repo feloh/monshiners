@@ -37,7 +37,10 @@ const messages = {
             privacy: 'Datenschutz',
             contact: 'Kontakt',
             about_subtitle: 'Hä wer?',
-            about: 'Die schnellsten Treckerfahrer der Stadt. Geistreiche Trinker und  Obstbauern aus Leidenschaft. Wir zeigen euch, was die Monheimer Natur zu bieten hat und warum man sie auf jeden Fall schützen und pflegen sollte. Ehrlich und grade soll unser Werk sein, vom Baumschnitt bis zum Abfüllen versuchen wir alles selber zu machen. Wenn es nicht anders geht, dann lassen wir die Profis ran. Das ist erst der Anfang...'
+            about: 'Die schnellsten Treckerfahrer der Stadt. Geistreiche Trinker und  Obstbauern aus Leidenschaft. Wir zeigen euch, was die Monheimer Natur zu bieten hat und warum man sie auf jeden Fall schützen und pflegen sollte. Ehrlich und grade soll unser Werk sein, vom Baumschnitt bis zum Abfüllen versuchen wir alles selber zu machen. Wenn es nicht anders geht, dann lassen wir die Profis ran. Das ist erst der Anfang...',
+            aboutUs: 'Über uns',
+            shop: 'Shop',
+            products: 'Unser Zeug'
         },
     },
     pl:{
@@ -80,7 +83,7 @@ const messages = {
 
 
 const i18n = new VueI18n({
-    locale: 'pl',
+    locale: 'de',
     fallbackLocale: 'de',
     messages
 })

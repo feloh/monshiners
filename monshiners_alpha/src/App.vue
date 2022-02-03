@@ -1,19 +1,25 @@
- <template>
-   <v-app class="application">
-     <consent></consent>
-    <router-view/>
-   </v-app>
+<template>
+  <div>
+    <v-app class="application">
+      <custom-drawer/>
+      <consent></consent>
+      <router-view/>
+    </v-app>
+  </div>
 </template>
 
- <script>
- import Consent from '@/components/core/Consent'
- export default {
-   name: "App",
-   components: {
-     Consent
-   }
- }
- </script>
+<script>
+import Consent from '@/components/core/Consent'
+import CustomDrawer from '@/components/core/Drawer'
+
+export default {
+  name: "App",
+  components: {
+    Consent,
+    CustomDrawer
+  }
+}
+</script>
 
 <style lang="scss">
 html, body {

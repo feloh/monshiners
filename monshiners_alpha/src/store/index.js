@@ -9,28 +9,38 @@ export default new Vuex.Store({
     fullScreenImage: false,
     socials: [
       {
-        name: 'facebook',
+        name: 'Facebook',
         href: 'https://www.facebook.com/monshinersObstbrand',
         color: 'black',
         icon: 'mdi-facebook'
       },
       {
-        name: 'facebook',
+        name: 'Instagram',
         href: 'https://www.instagram.com/monshiners_obstbrand/',
         color: 'black',
         icon: 'mdi-instagram'
       }
     ],
-    intersection: false
+    links: [
+      'aboutUs',
+      'products',
+      'shop'
+    ],
+    intersection: false,
+    drawerState: false
   },
   mutations: {
     openFullScrennImage(){
-
     },
     Confirmation() {
-
+    },
+    toggleDrawerState (state, data) {
+      state.drawerState = data
     },
     setIntersection: set('intersection'),
+  },
+  getters: {
+    drawerState: (state) => state.drawerState
   },
   actions: {
     openFullScrennImage(){

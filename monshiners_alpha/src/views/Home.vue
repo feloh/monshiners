@@ -1,34 +1,14 @@
 <template>
   <v-app>
-    <v-app-bar
-        app
-        fixed
-        color="transparent"
-        elevation="0"
-        inverted-scroll
-        ref="appBar"
-    >
-      <v-row no-gutters class="pl-3">
-        <Language/>
-        <v-spacer></v-spacer>
-        <social
-            v-for="s in socials"
-            :key="socials.indexOf(s)"
-            :color="isIntersecting ? 'black' : 'white'"
-            :src="s.href"
-            :icon="s.icon"
-        >
-        </social>
-      </v-row>
-    </v-app-bar>
+    <custom-app-bar/>
     <v-main id="root">
       <v-container fluid class="pa-0">
         <!--First Section-->
         <kinesis-container>
           <kinesis-element :strength="0.2" type="scale">
             <v-img
-                :src="`${saisonphasen.assets.jumbotron.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
-                :lazy-src="`${saisonphasen.assets.jumbotron.url}?w=400&h=500&fit=thumb&fm=jpg&fl=progressive&q=90`"
+                :src="`${jumbotron.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
+                :lazy-src="`${jumbotron.url}?w=400&h=500&fit=thumb&fm=jpg&fl=progressive&q=90`"
                 gradient="to top, rgba(0,0,0,0), rgba(0,0,0,0.40)"
                 style="padding-bottom: 50px"
                 max-height="1000px"
@@ -70,20 +50,20 @@
           }
         }"
         >
-        <base-card
-            m-width="750px"
-            style="margin-bottom: 50px"
-        >
-          <template v-slot:text>
-            {{ beschreibung.content[0].content[0].value }}
-          </template>
-        </base-card>
-        <fruits/>
+          <base-card
+              m-width="750px"
+              style="margin-bottom: 50px"
+          >
+            <template v-slot:text>
+              {{ beschreibung.content[0].content[0].value }}
+            </template>
+          </base-card>
+          <fruits/>
         </div>
         <!--Third Section-->
         <v-parallax
             height="1000"
-            :src="`${saisonphasen.assets.hintergrund.url}?h=1200&fm=jpg&fl=progressive&q=100`"
+            :src="`${hintergrund.url}?h=1200&fm=jpg&fl=progressive&q=100`"
         >
           <v-container fluid>
             <v-row justify="center">
@@ -106,24 +86,24 @@
           }
         }"
         >
-        <collage :src="saisonphasen.assets.collage"/>
-        <!--        <video-parallax
-            v-if="videoParallax.url"
-            height="400"
-            :img="`${videoParallaxStandbild.url}?h=900&fm=jpg&fl=progressive&q=100`"
-            :src="videoParallax.url"
-        >
-        </video-parallax>-->
+          <collage :src="collage"/>
+          <!--        <video-parallax
+              v-if="videoParallax.url"
+              height="400"
+              :img="`${videoParallaxStandbild.url}?h=900&fm=jpg&fl=progressive&q=100`"
+              :src="videoParallax.url"
+          >
+          </video-parallax>-->
         </div>
         <!--Fifth Section-->
         <v-img
-            :src="`${saisonphasen.assets.videoParallaxStandbild.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
-            :lazy-src="`${saisonphasen.assets.videoParallaxStandbild.url}?w=400&h=500&fit=thumb&fm=jpg&fl=progressive&q=90`"
+            :src="`${videoParallaxStandbild.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
+            :lazy-src="`${videoParallaxStandbild.url}?w=400&h=500&fit=thumb&fm=jpg&fl=progressive&q=90`"
             gradient="to bottom, rgba(0,0,0,0), rgba(0,0,0,0.40)"
             style="padding-bottom: 50px"
             max-height="1000px"
         >
-          <season :jahreszeit="jahreszeit" :saisonphasen="saisonphasen"/>
+          <!--season :jahreszeit="jahreszeit" :saisonphasen="saisonphasen"/-->
         </v-img>
         <!--        <div id="videoDiv">
                 <video
@@ -148,8 +128,8 @@
           }
         }"
         >
-        <gallery :src="saisonphasen.assets.detail"/>
-        <custom-footer/>
+          <gallery :src="detail"/>
+          <custom-footer/>
         </div>
       </v-container>
     </v-main>
@@ -160,35 +140,31 @@
 import Gallery from "@/components/gallery"
 import Bottle from '@/components/Bottle'
 import BaseCard from '@/components/base/Card'
+import CustomAppBar from '@/components/core/Appbar'
 import CustomFooter from '@/components/core/Footer'
-import Language from '@/components/core/Language'
-import Social from "@/components/Social"
 import Fruits from "@/components/Fruits"
-import Season from "@/components/season"
 import Collage from "@/components/Collage"
 import {KinesisElement, KinesisContainer} from 'vue-kinesis'
 // import VideoParallax from 'vuetify-video-parallax'
 
 import {mapActions, mapState, mapMutations} from 'vuex'
-import {GET_PRODUCT, GET_SEASON} from "@/store/action-types"
+import {GET_PRODUCT, GET_THEME} from "@/store/action-types"
 import Product from "@/store/modules/product"
-import SeasonModule from "@/store/modules/season"
+import ThemeModule from "@/store/modules/theme"
 
 import i18n from '@//plugins/i18n'
 import utils from "@/utils/season"
 
 
-const STORE_SEASON_NAMESPACE = 'season'
+const STORE_THEME_NAMESPACE = 'theme'
 const STORE_PRODUCT_NAMESPACE = 'product'
 
 export default {
   name: 'Home',
   components: {
     Collage,
-    Season,
     Fruits,
-    Social,
-    Language,
+    CustomAppBar,
     CustomFooter,
     Bottle,
     //Polaroid,
@@ -206,8 +182,8 @@ export default {
     ...mapActions(STORE_PRODUCT_NAMESPACE, {
       getProduct: GET_PRODUCT,
     }),
-    ...mapActions(STORE_SEASON_NAMESPACE, {
-      getSeason: GET_SEASON,
+    ...mapActions(STORE_THEME_NAMESPACE, {
+      getTheme: GET_THEME,
     }),
     ...mapMutations(['setIntersection']),
     activeSeasonContent(season) {
@@ -222,19 +198,22 @@ export default {
       const boundingRect = entries[0].boundingClientRect
       const intersectionRect = entries[0].intersectionRect
 
-        if (ratio === 0) this.isIntersecting = false
-        else if (ratio < 1) {
-          if (boundingRect.top < intersectionRect.top) this.isIntersecting = true
-          else this.isIntersecting = false
-        }
+      if (ratio === 0) this.isIntersecting = false
+      else if (ratio < 1) {
+        if (boundingRect.top < intersectionRect.top) this.isIntersecting = true
+        else this.isIntersecting = false
+      }
       else this.isIntersecting = true
     }
   },
   computed: {
     ...mapState(['socials']),
-    ...mapState(STORE_SEASON_NAMESPACE, [
-      'jahreszeit',
-      'saisonphasen'
+    ...mapState(STORE_THEME_NAMESPACE, [
+      'jumbotron',
+      'detail',
+      'collage',
+      'videoParallaxStandbild',
+      'hintergrund',
     ]),
     ...mapState(STORE_PRODUCT_NAMESPACE, [
       'produktbild',
@@ -248,12 +227,11 @@ export default {
         this.setIntersection(val)
       }
     },
-   threshold (){
-     return [...Array(100).keys()].map(x => x / 100)
-   }
+    threshold (){
+      return [...Array(100).keys()].map(x => x / 100)
+    }
   },
   created() {
-    const season = utils.setSeason()
     this.$store.registerModule(STORE_PRODUCT_NAMESPACE, Product)
     if (this.$store.state[STORE_PRODUCT_NAMESPACE].id) return
     this.getProduct(i18n.locale)
@@ -262,12 +240,12 @@ export default {
       this.getProduct(i18n.locale)
     })
 
-    this.$store.registerModule(STORE_SEASON_NAMESPACE, SeasonModule)
-    if (this.$store.state[STORE_SEASON_NAMESPACE].id) return
-    this.getSeason({season: season, locale: i18n.locale})
+    this.$store.registerModule(STORE_THEME_NAMESPACE, ThemeModule)
+    if (this.$store.state[STORE_THEME_NAMESPACE].id) return
+    this.getTheme({locale: i18n.locale, name: 'schnee'})
 
     this.$eventHub.$on('locale-changed', () => {
-      this.getSeason({season: season, locale: i18n.locale})
+      this.getTheme({locale: i18n.locale, name: 'schnee'})
     })
   },
   mounted() {
@@ -280,8 +258,6 @@ export default {
 @import '~vuetify/src/styles/styles.sass'
 body
   overflow-x: hidden
-
-.parallax-container
 
 #videoDiv
   width: 100%

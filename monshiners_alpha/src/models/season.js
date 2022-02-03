@@ -25,8 +25,9 @@ export  async function responseAdapter(response, locale) {
 
 export default {
     async get(query) {
-        return responseAdapter(await api.getEntries(
-            {'content_type': 'jahreszeit',
+        return responseAdapter(
+            await api.getEntries({
+                    'content_type': 'jahreszeit',
                     'fields.identifier' : query.season,
                     'locale': query.locale
             }))

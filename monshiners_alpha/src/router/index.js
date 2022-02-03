@@ -31,9 +31,33 @@ const router = new VueRouter({
             }
         },
         {
-            path: '/about',
+            path: '/wersdas',
             name: 'About',
-            component: () => import('../views/About.vue')
+            component: Home,
+            meta: {
+                requiresAge: true
+            }
+        },
+        {
+            path: '/wasmachndie',
+            name: 'Products',
+            component: Home,
+            meta: {
+                requiresAge: true
+            }
+        },
+        {
+            path: '/hierkannstekaufen',
+            name: 'Shop',
+            component: Home,
+            meta: {
+                requiresAge: true
+            }
+        },
+        {
+            path: '/impressum',
+            name: 'Imprint',
+            component: () => import('../views/Imprint.vue')
         },
         {
             path: '/age-confirmation',
