@@ -7,21 +7,29 @@
         <kinesis-container>
           <kinesis-element :strength="0.2" type="scale">
             <v-img
-                :src="`${jumbotron.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
-                :lazy-src="`${jumbotron.url}?w=400&h=500&fit=thumb&fm=jpg&fl=progressive&q=90`"
+                :src="`${currentTheme.jumbotron.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
+                :lazy-src="`${currentTheme.jumbotron.url}?w=400&h=500&fit=thumb&fm=jpg&fl=progressive&q=50`"
                 gradient="to top, rgba(0,0,0,0), rgba(0,0,0,0.40)"
                 style="padding-bottom: 50px"
-                max-height="1000px"
+                max-height="1000"
+                class="d-flex align-center"
             >
-              <kinesis-element :strength="0.6" type="scale" name="title" class="ma-8">
-                <v-img
+              <kinesis-element :strength="0.6" type="scale" name="title">
+<!--                <v-img
                     :src="white"
                     min-width="100px"
                     max-width="300px"
                     class="mx-auto"
+                />-->
+                <v-img
+                    :src="gif_logo"
+                    width="210px"
+                    max-width="700px"
+                    class="mx-auto"
+                    style="filter:invert(1)"
                 />
               </kinesis-element>
-              <bottle :src="produktbild.url"/>
+<!--              <bottle :src="produktbild.url"/>
               <div class="my-8 my-md-4">
                 <v-row justify="center">
                   <v-btn
@@ -36,7 +44,7 @@
                     {{ $t("home.btn") }}
                   </v-btn>
                 </v-row>
-              </div>
+              </div>-->
             </v-img>
           </kinesis-element>
         </kinesis-container>
@@ -62,8 +70,9 @@
         </div>
         <!--Third Section-->
         <v-parallax
-            height="1000"
-            :src="`${hintergrund.url}?h=1200&fm=jpg&fl=progressive&q=100`"
+            :height="$vuetify.breakpoint.mdAndUp ? 1000 : 500"
+            :src="`${currentTheme.hintergrund.url}?h=1200&fm=jpg&fl=progressive&q=100`"
+            :lazy-src="`${currentTheme.hintergrund.url}?h=500&fm=jpg&fl=progressive&q=50`"
         >
           <v-container fluid>
             <v-row justify="center">
@@ -86,7 +95,7 @@
           }
         }"
         >
-          <collage :src="collage"/>
+          <collage :src="currentTheme.collage"/>
           <!--        <video-parallax
               v-if="videoParallax.url"
               height="400"
@@ -97,8 +106,8 @@
         </div>
         <!--Fifth Section-->
         <v-img
-            :src="`${videoParallaxStandbild.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
-            :lazy-src="`${videoParallaxStandbild.url}?w=400&h=500&fit=thumb&fm=jpg&fl=progressive&q=90`"
+            :src="`${currentTheme.videoParallaxStandbild.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
+            :lazy-src="`${currentTheme.videoParallaxStandbild.url}?w=400&h=500&fit=thumb&fm=jpg&fl=progressive&q=90`"
             gradient="to bottom, rgba(0,0,0,0), rgba(0,0,0,0.40)"
             style="padding-bottom: 50px"
             max-height="1000px"
@@ -128,7 +137,7 @@
           }
         }"
         >
-          <gallery :src="detail"/>
+          <gallery :src="currentTheme.detail"/>
           <custom-footer/>
         </div>
       </v-container>
@@ -138,7 +147,7 @@
 
 <script>
 import Gallery from "@/components/gallery"
-import Bottle from '@/components/Bottle'
+// import Bottle from '@/components/Bottle'
 import BaseCard from '@/components/base/Card'
 import CustomAppBar from '@/components/core/Appbar'
 import CustomFooter from '@/components/core/Footer'
@@ -153,8 +162,6 @@ import Product from "@/store/modules/product"
 import ThemeModule from "@/store/modules/theme"
 
 import i18n from '@//plugins/i18n'
-import utils from "@/utils/season"
-
 
 const STORE_THEME_NAMESPACE = 'theme'
 const STORE_PRODUCT_NAMESPACE = 'product'
@@ -166,7 +173,7 @@ export default {
     Fruits,
     CustomAppBar,
     CustomFooter,
-    Bottle,
+    // Bottle,
     //Polaroid,
     Gallery,
     BaseCard,
@@ -175,23 +182,19 @@ export default {
     // VideoParallax
   },
   data: () => ({
+    gif_logo: require('@/assets/geometry/monshiners_logo_animated.png'),
     white: require('@/assets/geometry/schirftzug_white.png'),
     black: require('@/assets/geometry/schirftzug_black.png'),
+    t: null
   }),
   methods: {
     ...mapActions(STORE_PRODUCT_NAMESPACE, {
       getProduct: GET_PRODUCT,
     }),
     ...mapActions(STORE_THEME_NAMESPACE, {
-      getTheme: GET_THEME,
+      getTheme: GET_THEME
     }),
-    ...mapMutations(['setIntersection']),
-    activeSeasonContent(season) {
-      if (this.currentSeason === season) return this.saisonphasen
-    },
-    activeSeason(season) {
-      return this.currentSeason === season
-    },
+    ...mapMutations(['setIntersection','setIndex']),
     // eslint-disable-next-line
     onIntersect (entries, observer) {
       const ratio = entries[0].intersectionRatio
@@ -208,13 +211,7 @@ export default {
   },
   computed: {
     ...mapState(['socials']),
-    ...mapState(STORE_THEME_NAMESPACE, [
-      'jumbotron',
-      'detail',
-      'collage',
-      'videoParallaxStandbild',
-      'hintergrund',
-    ]),
+    ...mapState(STORE_THEME_NAMESPACE, ['currentTheme']),
     ...mapState(STORE_PRODUCT_NAMESPACE, [
       'produktbild',
       'beschreibung'
@@ -242,14 +239,13 @@ export default {
 
     this.$store.registerModule(STORE_THEME_NAMESPACE, ThemeModule)
     if (this.$store.state[STORE_THEME_NAMESPACE].id) return
-    this.getTheme({locale: i18n.locale, name: 'schnee'})
+    this.getTheme({locale: i18n.locale})
 
     this.$eventHub.$on('locale-changed', () => {
-      this.getTheme({locale: i18n.locale, name: 'schnee'})
+      this.getTheme({locale: i18n.locale})
     })
   },
-  mounted() {
-    this.currentSeason = utils.setSeason()
+  mounted (){
   }
 }
 </script>

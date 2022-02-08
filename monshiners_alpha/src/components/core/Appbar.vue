@@ -7,19 +7,19 @@
       inverted-scroll
       ref="appBar"
   >
+    <v-btn
+        v-if="$vuetify.breakpoint.smAndDown"
+        color="darkgreen"
+        elevation="0"
+        dark
+        @click="drawerState = !drawerState"
+    >
+      <v-icon>mdi-menu</v-icon>
+    </v-btn>
     <v-row no-gutters>
-      <v-btn
-          v-if="$vuetify.breakpoint.smAndDown"
-          color="darkgreen"
-          elevation="0"
-          dark
-          @click="drawerState = !drawerState"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
       <Language v-if="$vuetify.breakpoint.mdAndUp"/>
       <v-spacer></v-spacer>
-      <switcher></switcher>
+      <switcher v-if="$vuetify.breakpoint.mdAndUp"></switcher>
       <v-spacer></v-spacer>
       <social
           v-for="s in socials"

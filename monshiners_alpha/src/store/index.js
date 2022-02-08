@@ -26,11 +26,12 @@ export default new Vuex.Store({
       'products',
       'shop'
     ],
+    themes: [],
     intersection: false,
-    drawerState: false
+    drawerState: false,
   },
   mutations: {
-    openFullScrennImage(){
+    openFullScreenImage(){
     },
     Confirmation() {
     },

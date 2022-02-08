@@ -14,6 +14,11 @@
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
+    <v-list-item>
+      <v-list-item-content>
+        <switcher class="d-flex justify-center" v-if="$vuetify.breakpoint.smAndDown"></switcher>
+      </v-list-item-content>
+    </v-list-item>
       <v-divider></v-divider>
       <v-list
           dense
@@ -46,6 +51,7 @@
       </v-list-item>
     </v-list>
     <v-divider></v-divider>
+    <v-spacer></v-spacer>
     <v-list
         dense
         nav
@@ -63,9 +69,13 @@
 
 <script>
 import {mapState} from "vuex";
+import Switcher from "@/components/Switcher"
 
 export default {
   name: "Drawer",
+  components: {
+    Switcher
+  },
   data: () => ({
     imprint:['imprint', 'privacy', 'contact']
   }),

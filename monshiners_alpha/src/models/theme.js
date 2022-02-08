@@ -6,6 +6,7 @@ export class Theme {
     constructor({
                     id = null,
                     name = ``,
+                    month = null,
                     text = ``,
                     jumbotron = ``,
                     hintergrund = ``,
@@ -16,6 +17,7 @@ export class Theme {
                 } = {}) {
         this.id = id
         this.name = name
+        this.month = month
         this.text = text
         this.jumbotron = jumbotron
         this.hintergrund = hintergrund
@@ -27,30 +29,36 @@ export class Theme {
 }
 
 export function responseAdapter(response) {
-    const {fields, sys} = response.sys.type === `Array`
-        ? response.items[0]
-        : response
 
-    const jumbotron = imageResponseAdapter(fields.jumbotron, response.includes)
-    const hintergrund = imageResponseAdapter(fields.hintergrund, response.includes)
-    const videoParallaxStandbild = videoResponseAdapter(fields.videoParallaxStandbild, response.includes)
-    const videoParallax = videoResponseAdapter(fields.videoParallax, response.includes)
+    const{items} = response
+    let res = []
 
-    const collage = fields.collage
-        .map(x => imageResponseAdapter(x, response.includes))
+    items.forEach((item) =>{
+        const {fields, sys} = item
 
-    const detail = fields.detail
-        .map(x => imageResponseAdapter(x, response.includes))
+        const jumbotron = imageResponseAdapter(fields.jumbotron, response.includes)
+        const hintergrund = imageResponseAdapter(fields.hintergrund, response.includes)
+        const videoParallaxStandbild = videoResponseAdapter(fields.videoParallaxStandbild, response.includes)
+        const videoParallax = videoResponseAdapter(fields.videoParallax, response.includes)
 
-    return new Theme({
-        ...fields, ...sys,
-        jumbotron,
-        hintergrund,
-        collage,
-        detail,
-        videoParallax,
-        videoParallaxStandbild
+        const collage = fields.collage
+            .map(x => imageResponseAdapter(x, response.includes))
+
+        const detail = fields.detail
+            .map(x => imageResponseAdapter(x, response.includes))
+
+        let t = new Theme({
+            ...fields, ...sys,
+            jumbotron,
+            hintergrund,
+            collage,
+            detail,
+            videoParallax,
+            videoParallaxStandbild
+        })
+        res.push(t)
     })
+    return res
 }
 
 export default {

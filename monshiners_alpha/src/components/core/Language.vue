@@ -1,5 +1,4 @@
 <template>
-  <div>
     <v-speed-dial
         v-model="fab"
         direction="bottom"
@@ -41,7 +40,6 @@
         {{$t('lng.de')}}
       </v-btn>
     </v-speed-dial>
-  </div>
 </template>
 
 <script>
