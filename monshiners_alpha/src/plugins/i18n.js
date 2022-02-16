@@ -33,7 +33,7 @@ const messages = {
             year: 'Unser Jahr',
             quote: 'Drenk ne klore Schabau, dä hält op Johre!   ',
             imprint: 'Impressum',
-            social: 'Kannst\'e nicht genug von uns bekommen? Folg uns doch hier:',
+            social: 'Kannst\'e nicht genug von uns bekommen? Folg uns hier:',
             privacy: 'Datenschutz',
             contact: 'Kontakt',
             about_subtitle: 'Hä wer?',

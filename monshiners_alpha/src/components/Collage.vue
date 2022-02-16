@@ -30,7 +30,8 @@
         <kinesis-element :strength=30 type="translate" axis="x" maxx="5"	 :active="!this.$vuetify.breakpoint.mobile">
         <v-img
             :src="`${src[0].url}?w=600&fm=jpg&fl=progressive&q=100`"
-            width="500px"
+            :height="$vuetify.breakpoint.mdAndUp ? 500 : 200"
+            contain
             class="mx-auto"
         />
         </kinesis-element>
@@ -55,12 +56,12 @@
               <v-card-subtitle
                   class="text-md-h6 text-uppercase font-weight-medium mx-auto text-center"
               >
-                {{ $t('home.about_subtitle') }}
+                {{about.bestandteile[0].titel}}
               </v-card-subtitle>
               <v-card-text
                   class="font-weight-medium text-md-subtitle-1"
               >
-                {{ $t('home.about') }}
+                {{about.bestandteile[0].inhalt[0].content[0].value}}
               </v-card-text>
             </v-card>
         </kinesis-element>
@@ -128,6 +129,10 @@ export default {
     src: {
       type: Array,
       default: (() => [])
+    },
+    about: {
+      type: Object,
+      default: (() => {})
     },
   }
 }

@@ -24,7 +24,7 @@ export default {
             const t = state.themes
             let index = t.indexOf(t.find((el) => el.id === state.currentTheme.id))
             state.currentTheme = new Theme()
-            Object.assign(state.currentTheme, t[index+direction])
+            Object.assign(state.currentTheme, t[index+direction === -1 ? t.length-1 : index+direction > t.length-1 ? 0 : index+direction])
         }
     },
     state: () => ({

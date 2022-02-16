@@ -2,49 +2,32 @@
   <v-app>
     <custom-app-bar/>
     <v-main id="root">
-      <v-container fluid class="pa-0">
+      <v-container class="pa-0" fluid>
         <!--First Section-->
         <kinesis-container>
           <kinesis-element :strength="0.2" type="scale">
             <v-img
-                :src="`${currentTheme.jumbotron.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
+                :height="$vuetify.breakpoint.mdAndUp ? 750 : 400"
                 :lazy-src="`${currentTheme.jumbotron.url}?w=400&h=500&fit=thumb&fm=jpg&fl=progressive&q=50`"
+                :src="`${currentTheme.jumbotron.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
+                class="d-flex align-center"
                 gradient="to top, rgba(0,0,0,0), rgba(0,0,0,0.40)"
                 style="padding-bottom: 50px"
-                max-height="1000"
-                class="d-flex align-center"
             >
-              <kinesis-element :strength="0.6" type="scale" name="title">
-<!--                <v-img
-                    :src="white"
-                    min-width="100px"
-                    max-width="300px"
-                    class="mx-auto"
-                />-->
+              <kinesis-element :strength="0.6" name="title" type="scale">
+                <!--                <v-img
+                                    :src="white"
+                                    min-width="100px"
+                                    max-width="300px"
+                                    class="mx-auto"
+                                />-->
                 <v-img
                     :src="gif_logo"
-                    width="210px"
-                    max-width="700px"
+                    :width="$vuetify.breakpoint.mdAndUp ? 360 :210"
                     class="mx-auto"
                     style="filter:invert(1)"
                 />
               </kinesis-element>
-<!--              <bottle :src="produktbild.url"/>
-              <div class="my-8 my-md-4">
-                <v-row justify="center">
-                  <v-btn
-                      color="darkgreen"
-                      elevation="3"
-                      dark
-                      tile
-                      class="font-weight-bold"
-                      href="/"
-                      disabled
-                  >
-                    {{ $t("home.btn") }}
-                  </v-btn>
-                </v-row>
-              </div>-->
             </v-img>
           </kinesis-element>
         </kinesis-container>
@@ -70,15 +53,15 @@
         </div>
         <!--Third Section-->
         <v-parallax
-            :height="$vuetify.breakpoint.mdAndUp ? 1000 : 500"
-            :src="`${currentTheme.hintergrund.url}?h=1200&fm=jpg&fl=progressive&q=100`"
+            :height="$vuetify.breakpoint.mdAndUp ? 800 : 500"
             :lazy-src="`${currentTheme.hintergrund.url}?h=500&fm=jpg&fl=progressive&q=50`"
+            :src="`${currentTheme.hintergrund.url}?h=1200&fm=jpg&fl=progressive&q=100`"
         >
           <v-container fluid>
             <v-row justify="center">
               <v-col
-                  md="6"
                   class="text-h4 white--text  font-weight-medium text-center"
+                  md="6"
               >
                 {{ $t("home.quote") }}
               </v-col>
@@ -95,7 +78,7 @@
           }
         }"
         >
-          <collage :src="currentTheme.collage"/>
+          <collage :src="currentTheme.collage" :about="$store.state.reference"/>
           <!--        <video-parallax
               v-if="videoParallax.url"
               height="400"
@@ -106,12 +89,14 @@
         </div>
         <!--Fifth Section-->
         <v-img
-            :src="`${currentTheme.videoParallaxStandbild.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
+            :height="$vuetify.breakpoint.mdAndUp ? 800 : 500"
             :lazy-src="`${currentTheme.videoParallaxStandbild.url}?w=400&h=500&fit=thumb&fm=jpg&fl=progressive&q=90`"
+            :src="`${currentTheme.videoParallaxStandbild.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
+            class="d-flex justify-center align-center"
             gradient="to bottom, rgba(0,0,0,0), rgba(0,0,0,0.40)"
             style="padding-bottom: 50px"
-            max-height="1000px"
         >
+          <bottle :src="produktbild.url"/>
           <!--season :jahreszeit="jahreszeit" :saisonphasen="saisonphasen"/-->
         </v-img>
         <!--        <div id="videoDiv">
@@ -147,7 +132,7 @@
 
 <script>
 import Gallery from "@/components/gallery"
-// import Bottle from '@/components/Bottle'
+import Bottle from '@/components/Bottle'
 import BaseCard from '@/components/base/Card'
 import CustomAppBar from '@/components/core/Appbar'
 import CustomFooter from '@/components/core/Footer'
@@ -157,14 +142,17 @@ import {KinesisElement, KinesisContainer} from 'vue-kinesis'
 // import VideoParallax from 'vuetify-video-parallax'
 
 import {mapActions, mapState, mapMutations} from 'vuex'
-import {GET_PRODUCT, GET_THEME} from "@/store/action-types"
+import {GET_PRODUCT, GET_THEME, GET_REFERENCE} from "@/store/action-types"
 import Product from "@/store/modules/product"
 import ThemeModule from "@/store/modules/theme"
+import Reference from "@/store/modules/reference"
 
 import i18n from '@//plugins/i18n'
 
+
 const STORE_THEME_NAMESPACE = 'theme'
 const STORE_PRODUCT_NAMESPACE = 'product'
+const STORE_REFERENCE_NAMESPACE = 'reference'
 
 export default {
   name: 'Home',
@@ -173,7 +161,7 @@ export default {
     Fruits,
     CustomAppBar,
     CustomFooter,
-    // Bottle,
+    Bottle,
     //Polaroid,
     Gallery,
     BaseCard,
@@ -194,9 +182,12 @@ export default {
     ...mapActions(STORE_THEME_NAMESPACE, {
       getTheme: GET_THEME
     }),
-    ...mapMutations(['setIntersection','setIndex']),
+    ...mapActions(STORE_REFERENCE_NAMESPACE, {
+      getReference: GET_REFERENCE,
+    }),
+    ...mapMutations(['setIntersection', 'setIndex']),
     // eslint-disable-next-line
-    onIntersect (entries, observer) {
+    onIntersect(entries, observer) {
       const ratio = entries[0].intersectionRatio
       const boundingRect = entries[0].boundingClientRect
       const intersectionRect = entries[0].intersectionRect
@@ -205,8 +196,7 @@ export default {
       else if (ratio < 1) {
         if (boundingRect.top < intersectionRect.top) this.isIntersecting = true
         else this.isIntersecting = false
-      }
-      else this.isIntersecting = true
+      } else this.isIntersecting = true
     }
   },
   computed: {
@@ -216,15 +206,16 @@ export default {
       'produktbild',
       'beschreibung'
     ]),
+    ...mapState(STORE_REFERENCE_NAMESPACE, []),
     isIntersecting: {
-      get () {
+      get() {
         return this.$store.state.intersection
       },
-      set (val) {
+      set(val) {
         this.setIntersection(val)
       }
     },
-    threshold (){
+    threshold() {
       return [...Array(100).keys()].map(x => x / 100)
     }
   },
@@ -244,8 +235,14 @@ export default {
     this.$eventHub.$on('locale-changed', () => {
       this.getTheme({locale: i18n.locale})
     })
-  },
-  mounted (){
+
+    this.$store.registerModule(STORE_REFERENCE_NAMESPACE, Reference)
+    if (this.$store.state[STORE_REFERENCE_NAMESPACE].id) return
+    this.getReference({locale: i18n.locale, id: '2UXMuzteex84qEplFFuCvV'})
+
+    this.$eventHub.$on('locale-changed', () => {
+      this.getReference({locale: i18n.locale , id:'2UXMuzteex84qEplFFuCvV'})
+    })
   }
 }
 </script>

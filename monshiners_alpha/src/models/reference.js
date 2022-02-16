@@ -14,6 +14,7 @@ export class Reference {
 }
 
 export function responseAdapter(response) {
+    console.log(response)
     const {fields, sys} = response.sys.type === `Array`
         ? response.items[0]
         : response
@@ -24,7 +25,10 @@ export function responseAdapter(response) {
 }
 
 export default {
-    async get() {
-        return responseAdapter(await api.getEntries(reference))
+    async get(query) {
+        return responseAdapter(await api.getEntries({
+            'locale': query.locale,
+            'sys.id': query.id
+        }))
     },
 }

@@ -5,8 +5,8 @@ import ReferenceModel, { Reference } from '../../models/reference'
 export default {
     namespaced: true,
     actions: {
-        async [GET_REFERENCE]({ commit }) {
-            commit(SET_REFERENCE, await ReferenceModel.get())
+        async [GET_REFERENCE]({ commit }, query) {
+            commit(SET_REFERENCE, await ReferenceModel.get(query))
         },
     },
     mutations: {

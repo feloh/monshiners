@@ -99,7 +99,7 @@ export default {
   created() {
     this.$store.registerModule(STORE_REFERENCE_NAMESPACE, Reference)
     if (this.$store.state[STORE_REFERENCE_NAMESPACE].id) return
-    this.getReference()
+    this.getReference({id: '3lAVKi6bWbI1xoNAyNxaGq'})
   },
 }
 </script>

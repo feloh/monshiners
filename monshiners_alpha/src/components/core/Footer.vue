@@ -43,7 +43,7 @@
           text
           rounded
           class="my-2 text-subtitle-1 font-weight-medium"
-          :to="`/about#${link}`"
+          :to="`/impressum#${link}`"
       >
         {{$t(`home.${link}`)}}
       </v-btn>
