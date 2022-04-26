@@ -125,6 +125,8 @@
           <gallery :src="currentTheme.detail"/>
           <custom-footer/>
         </div>
+        <!--Fullscreen Image-->
+        <full-screen-image></full-screen-image>
       </v-container>
     </v-main>
   </v-app>
@@ -138,6 +140,7 @@ import CustomAppBar from '@/components/core/Appbar'
 import CustomFooter from '@/components/core/Footer'
 import Fruits from "@/components/Fruits"
 import Collage from "@/components/Collage"
+import FullScreenImage from '@/components/FullScreenImage'
 import {KinesisElement, KinesisContainer} from 'vue-kinesis'
 // import VideoParallax from 'vuetify-video-parallax'
 
@@ -167,6 +170,7 @@ export default {
     BaseCard,
     KinesisContainer,
     KinesisElement,
+    FullScreenImage
     // VideoParallax
   },
   data: () => ({

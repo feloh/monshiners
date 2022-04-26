@@ -6,7 +6,10 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    fullScreenImage: false,
+    fullScreenImage: {
+      state: false,
+      src: '',
+    },
     socials: [
       {
         name: 'Facebook',
@@ -31,7 +34,11 @@ export default new Vuex.Store({
     drawerState: false,
   },
   mutations: {
-    openFullScreenImage(){
+    setSrcFullScreenImage(state, src){
+      state.fullScreenImage.src = src
+    },
+    toggleFullScreenImage(state){
+      state.fullScreenImage.state = !state.fullScreenImage.state
     },
     Confirmation() {
     },
@@ -39,16 +46,20 @@ export default new Vuex.Store({
       state.drawerState = data
     },
     setIntersection: set('intersection'),
+
   },
   getters: {
     drawerState: (state) => state.drawerState
   },
   actions: {
-    openFullScrennImage(){
-
+    openFullScreenImage({commit}, src){
+      commit('setSrcFullScreenImage', src)
+      commit('toggleFullScreenImage')
+    },
+    closeFullScreenImage({commit}) {
+      commit('toggleFullScreenImage')
     },
     Confirmation() {
-
     }
   },
   modules: {

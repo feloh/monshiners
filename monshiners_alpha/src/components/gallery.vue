@@ -14,7 +14,7 @@
               v-for="i in reactiveGallery[slide-1]"
               :key="i"
               :src="src[i].url"
-              :overlay="false"
+              :overlay="true"
           />
         </v-row>
       </v-carousel-item>
@@ -50,7 +50,6 @@ export default {
         }
         array.push(index)
       }
-      console.log(array)
       return array
     }
   },

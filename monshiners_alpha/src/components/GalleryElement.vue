@@ -9,6 +9,7 @@
         :src="`${src}?w=500&h=500&fm=jpg&fl=progressive&q=100`"
         :lazy-src="`${src}?w=360&h=250&fit=thumb&fm=jpg&fl=progressive&q=90`"
         aspect-ratio="1"
+        @click="open(src)"
 
     />
   </v-card>
@@ -16,6 +17,8 @@
 </template>
 
 <script>
+
+import {mapActions} from 'vuex'
 
 export default {
   name: "GalleryElement",
@@ -28,6 +31,11 @@ export default {
       type: Boolean,
       default: false
     }
+  },
+  methods: {
+    ...mapActions({
+      open: 'openFullScreenImage'
+    })
   }
 }
 </script>
