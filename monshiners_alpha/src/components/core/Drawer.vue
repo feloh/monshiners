@@ -69,7 +69,7 @@
 
 <script>
 import {mapState} from "vuex";
-import Switcher from "@/components/Switcher"
+import Switcher from "@/components/appbar/Switcher"
 
 export default {
   name: "Drawer",

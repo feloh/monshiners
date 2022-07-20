@@ -53,7 +53,7 @@
 </template>
 
 <script>
-import Social from "@/components/Social"
+import Social from "@/components/appbar/Social"
 import {mapState} from "vuex"
 
 export default {

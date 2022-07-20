@@ -54,8 +54,8 @@
 </template>
 
 <script>
-import Language from '@/components/core/Language'
-import Social from "@/components/Social"
+import Language from '@/components/appbar/Language'
+import Social from "@/components/appbar/Social"
 import i18n from '@//plugins/i18n'
 import {mapState} from "vuex"
 

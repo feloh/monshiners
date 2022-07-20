@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import GalleryElement from '@/components/GalleryElement'
+import GalleryElement from '@/components/gallery/GalleryElement'
 
 export default {
   name: "gallery",

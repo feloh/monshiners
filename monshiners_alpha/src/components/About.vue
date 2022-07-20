@@ -1,25 +1,6 @@
 <template>
   <kinesis-container event="scroll">
   <v-container fluid class="pa-5">
-<!--    <v-row justify-md="space-around">
-      <v-col md="4">
-        <v-img
-
-            :src="`${src[0].url}?h=300&fm=jpg&fl=progressive&q=100`"
-        />
-      </v-col>
-      <v-col md="3" align-self="center">
-        <v-img
-            :src="`${src[1].url}?w=1000&fm=jpg&fl=progressive&q=100`"
-        />
-      </v-col>
-      <v-col md="3">
-        <v-img
-
-            :src="`${src[2].url}?w=1000&fm=jpg&fl=progressive&q=100`"
-        />
-      </v-col>
-    </v-row>-->
     <v-row justify-md="space-around">
       <v-col
           md="6"
@@ -29,7 +10,7 @@
       >
         <kinesis-element :strength=30 type="translate" axis="x" maxx="5"	 :active="!this.$vuetify.breakpoint.mobile">
         <v-img
-            :src="`${src[0].url}?w=600&fm=jpg&fl=progressive&q=100`"
+            :src="logo"
             :height="$vuetify.breakpoint.mdAndUp ? 500 : 200"
             contain
             class="mx-auto"
@@ -112,7 +93,6 @@
 </template>
 
 <script>
-// import Polaroid from "@/components/Polaroid"
 import{KinesisElement, KinesisContainer} from 'vue-kinesis'
 
 export default {
@@ -123,7 +103,8 @@ export default {
     // Polaroid
   },
   data: () => ({
-    black: require('@/assets/geometry/schirftzug_black.png')
+    black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png'),
+    logo: require('@/assets/img/monshiners_logo.jpg')
   }),
   props: {
     src: {

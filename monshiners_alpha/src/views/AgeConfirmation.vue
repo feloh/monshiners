@@ -28,9 +28,6 @@
           max-width="700px"
           class="mx-auto"
       />
-<!--      <div class="head">
-        <span class="jittery">MONSHINERS'</span>
-      </div>-->
     </v-row>
     <v-row justify="space-around" class="mt-10">
       <v-btn
@@ -56,9 +53,8 @@
 </template>
 
 <script>
-import Language from '@/components/core/Language'
-import Social from "@/components/Social"
-import $ from 'jquery'
+import Language from '@/components/appbar/Language'
+import Social from "@/components/appbar/Social"
 import Cookies from 'js-cookie'
 import {mapState} from "vuex"
 
@@ -69,7 +65,7 @@ export default {
     Social
   },
   data: () => ({
-        black: require('@/assets/geometry/title_black_ms.svg')}),
+        black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png')}),
   computed: {
     ...mapState(['socials']),
   },
@@ -85,23 +81,6 @@ export default {
     setCookie(name,value,expT){
       Cookies.set(name, value, {expires: expT})
     }
-  },
-  created(){
-    $(function(){
-      let $jittery = $('.jittery'),
-          aText    = $jittery.text().split(''),
-          letters = '';
-
-      for(let i = 0; i < aText.length; i++){
-        letters += '<span>'+aText[i]+'</span>'
-      }
-
-      $jittery.empty().append(letters)
-
-      $.each($('span', $jittery), function(i){
-        $(this).css('animation-delay', '-'+i+'70ms')
-      });
-    });
   }
 }
 </script>

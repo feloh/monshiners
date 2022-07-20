@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import Fruit from "@/components/fruit"
+import Fruit from "@/components/fruits/fruit"
 import Ingredients from "@/store/modules/ingredients"
 import {GET_INGREDIENTS} from "@/store/action-types"
 import {mapActions, mapState} from "vuex"

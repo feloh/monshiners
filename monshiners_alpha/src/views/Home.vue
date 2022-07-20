@@ -8,7 +8,7 @@
           <kinesis-element :strength="0.2" type="scale">
             <v-img
                 :height="$vuetify.breakpoint.mdAndUp ? 750 : 400"
-                :lazy-src="`${currentTheme.jumbotron.url}?w=400&h=500&fit=thumb&fm=jpg&fl=progressive&q=50`"
+                :lazy-src="`${lazy}?h=200&fit=thumb&fm=jpg&fl=progressive&q=50`"
                 :src="`${currentTheme.jumbotron.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
                 class="d-flex align-center"
                 gradient="to top, rgba(0,0,0,0), rgba(0,0,0,0.40)"
@@ -79,13 +79,6 @@
         }"
         >
           <collage :src="currentTheme.collage" :about="$store.state.reference"/>
-          <!--        <video-parallax
-              v-if="videoParallax.url"
-              height="400"
-              :img="`${videoParallaxStandbild.url}?h=900&fm=jpg&fl=progressive&q=100`"
-              :src="videoParallax.url"
-          >
-          </video-parallax>-->
         </div>
         <!--Fifth Section-->
         <v-img
@@ -97,22 +90,7 @@
             style="padding-bottom: 50px"
         >
           <bottle :src="produktbild.url"/>
-          <!--season :jahreszeit="jahreszeit" :saisonphasen="saisonphasen"/-->
         </v-img>
-        <!--        <div id="videoDiv">
-                <video
-                    id="video"
-                    autoplay
-                    muted
-                    loop
-                    :src="`${saisonphasen.assets.videoParallax.url}?h=1000&fm=mp4&fl=progressive&q=100`"
-                >
-                </video>
-                <v-row justify="center" align="center" style=" width:100%; height: 100%;z-index: 1">
-                  <season :jahreszeit="jahreszeit" :saisonphasen="saisonphasen"/>
-                </v-row>
-                </div>-->
-        <!--Sixt Section-->
         <div
             v-intersect="{
           handler: onIntersect,
@@ -133,17 +111,11 @@
 </template>
 
 <script>
-import Gallery from "@/components/gallery"
-import Bottle from '@/components/Bottle'
+import {Bottle,Fruits, Gallery, FullScreenImage} from '@/components/home'
+import {AppBar as CustomAppBar, Footer as CustomFooter} from '@/components/core'
 import BaseCard from '@/components/base/Card'
-import CustomAppBar from '@/components/core/Appbar'
-import CustomFooter from '@/components/core/Footer'
-import Fruits from "@/components/Fruits"
-import Collage from "@/components/Collage"
-import FullScreenImage from '@/components/FullScreenImage'
+import Collage from "@/components/About"
 import {KinesisElement, KinesisContainer} from 'vue-kinesis'
-// import VideoParallax from 'vuetify-video-parallax'
-
 import {mapActions, mapState, mapMutations} from 'vuex'
 import {GET_PRODUCT, GET_THEME, GET_REFERENCE} from "@/store/action-types"
 import Product from "@/store/modules/product"
@@ -165,18 +137,17 @@ export default {
     CustomAppBar,
     CustomFooter,
     Bottle,
-    //Polaroid,
     Gallery,
     BaseCard,
     KinesisContainer,
     KinesisElement,
     FullScreenImage
-    // VideoParallax
   },
   data: () => ({
     // gif_logo: require('@/assets/geometry/monshiners_logo_animated.png'),
-    white: require('@/assets/geometry/schirftzug_white.png'),
-    black: require('@/assets/geometry/schirftzug_black.png'),
+    white: require('@/assets/geometry/monshiners_schriftzug_weiss.png'),
+    black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png'),
+    lazy: require('@/assets/img/monshiners_obstbrand_logo.jpg'),
     t: null
   }),
   methods: {

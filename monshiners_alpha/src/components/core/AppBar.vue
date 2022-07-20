@@ -34,9 +34,9 @@
 </template>
 
 <script>
-import Social from "@/components/Social"
-import Switcher from "@/components/Switcher"
-import Language from '@/components/core/Language'
+import Social from "@/components/appbar/Social"
+import Switcher from "@/components/appbar/Switcher"
+import Language from '@/components/appbar/Language'
 import {mapState} from "vuex"
 
 export default {
