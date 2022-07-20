@@ -5,11 +5,14 @@ import Cookies from 'js-cookie'
 import Home from '../views/Home.vue'
 import Catch from '../views/Catch.vue'
 import AgeConfirmation from '../views/AgeConfirmation.vue'
+import Meta from 'vue-meta'
 
 
 Vue.use(VueRouter)
+Vue.use(Meta)
 
-const router = new VueRouter({
+const router = new VueRouter(
+    {
     scrollBehavior: (to, from, savedPosition) => {
         let scrollTo = 0
 
@@ -21,6 +24,7 @@ const router = new VueRouter({
 
         return goTo(scrollTo)
     },
+        mode: 'history',
     routes: [
         {
             path: '/',

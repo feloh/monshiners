@@ -22,7 +22,7 @@
                                     class="mx-auto"
                                 />-->
                 <v-img
-                    :src="gif_logo"
+                    :src="black"
                     :width="$vuetify.breakpoint.mdAndUp ? 360 :210"
                     class="mx-auto"
                     style="filter:invert(1)"
@@ -174,7 +174,7 @@ export default {
     // VideoParallax
   },
   data: () => ({
-    gif_logo: require('@/assets/geometry/monshiners_logo_animated.png'),
+    // gif_logo: require('@/assets/geometry/monshiners_logo_animated.png'),
     white: require('@/assets/geometry/schirftzug_white.png'),
     black: require('@/assets/geometry/schirftzug_black.png'),
     t: null

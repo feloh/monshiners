@@ -6,10 +6,11 @@ import store from './store'
 import i18n from './plugins/i18n'
 import JsCookie from 'js-cookie'
 import VueKinesis from 'vue-kinesis'
+import VueMeta from 'vue-meta'
 Vue.prototype.$eventHub = new Vue() // Global event bus
 
 Vue.config.productionTip = false
-Vue.use(JsCookie, VueKinesis)
+Vue.use(JsCookie, VueKinesis,VueMeta)
 
 new Vue({
   vuetify,
