@@ -1,31 +1,12 @@
 <template>
   <v-app>
-    <v-app-bar
-        app
-        fixed
-        color="transparent"
-        elevation="0"
-    >
-      <v-row no-gutters>
-        <Language/>
-        <v-spacer></v-spacer>
-        <social
-            v-for="s in socials"
-            :key="socials.indexOf(s)"
-            :color="s.color"
-            :src="s.href"
-            :icon="s.icon"
-        >
-        </social>
-      </v-row>
-    </v-app-bar>
   <v-main>
   <v-container>
-    <v-row justify="center" align="start" class="pb-10">
+    <v-row justify="center" align="start" class="py-10">
       <v-img
           :src="black"
-          min-width="400px"
-          max-width="700px"
+          min-width="100px"
+          max-width="300px"
           class="mx-auto"
       />
     </v-row>
@@ -53,17 +34,11 @@
 </template>
 
 <script>
-import Language from '@/components/appbar/Language'
-import Social from "@/components/appbar/Social"
 import Cookies from 'js-cookie'
 import {mapState} from "vuex"
 
 export default {
   name: "Start",
-  components:  {
-    Language,
-    Social
-  },
   data: () => ({
         black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png')}),
   computed: {

@@ -8,7 +8,7 @@
           order-md="1"
           align-self="center"
       >
-        <kinesis-element :strength=30 type="translate" axis="x" maxx="5"	 :active="!this.$vuetify.breakpoint.mobile">
+        <kinesis-element :strength=30 type="translate" axis="x" :max-x="10"	 :active="!this.$vuetify.breakpoint.mobile">
         <v-img
             :src="logo"
             :height="$vuetify.breakpoint.mdAndUp ? 500 : 200"
@@ -23,7 +23,7 @@
           order-md="2"
           align-self="center"
       >
-        <kinesis-element :strength=-30 type="translate" axis="x" maxx="5"	 :active="!this.$vuetify.breakpoint.mobile">
+        <kinesis-element :strength=-30 type="translate" axis="x" :max-x="10"	 :active="!this.$vuetify.breakpoint.mobile">
             <v-card
                 max-width="750px"
                 class="mx-auto"
@@ -35,77 +35,40 @@
                   class="mx-auto"
               />
               <v-card-subtitle
+                  v-if="titel"
                   class="text-md-h6 text-uppercase font-weight-medium mx-auto text-center"
               >
-                {{about.bestandteile[0].titel}}
+                {{titel}}
               </v-card-subtitle>
               <v-card-text
+                  v-if="inhalt"
                   class="font-weight-medium text-md-subtitle-1"
               >
-                {{about.bestandteile[0].inhalt[0].content[0].value}}
+                {{inhalt[0].content[0].value}}
               </v-card-text>
             </v-card>
         </kinesis-element>
       </v-col>
     </v-row>
-<!--    <v-row>
-      <v-col cols=12 md="3">
-        <polaroid class="pl-md-3" :src="`${src[8].url}?h=300&fm=jpg&fl=progressive&q=100`"/>
-      </v-col>
-      <v-col cols="12" md="2" align-self="start">
-        <v-img
-
-            :src="`${src[9].url}?h=300&fm=jpg&fl=progressive&q=100`"
-            aspect-ratio="1"
-        />
-      </v-col>
-      <v-col cols="12" md="2">
-        <v-row>
-          <v-col cols="12" md="12">
-            <v-img
-                max-width="400"
-                class="mx-auto"
-                :src="`${src[10].url}?h=300&fm=jpg&fl=progressive&q=100`"
-                aspect-ratio="1.3"
-            />
-          </v-col>
-          <v-col cols="12" md="12">
-            <v-img
-                max-width="400"
-                class="mx-auto"
-                :src="`${src[11].url}?h=300&fm=jpg&fl=progressive&q=100`"
-                aspect-ratio="1.3"
-            />
-          </v-col>
-        </v-row>
-      </v-col>
-      <v-col cols="12" md="5">
-        <div class="video-container">
-          <video :src="src[12].url" class="video" autoplay loop muted/>
-        </div>
-      </v-col>
-    </v-row>-->
   </v-container>
   </kinesis-container>
-  <!--        <div class="video-container">
-          <video :src="src[3].url" class="video" autoplay loop muted/>
-        </div>-->
 </template>
 
 <script>
 import{KinesisElement, KinesisContainer} from 'vue-kinesis'
+import i18n from "@/plugins/i18n"
+import {mapActions, mapState} from "vuex"
+import {GET_TEXTBLOCK} from "@/store/action-types"
+import TextBlock from "@/store/modules/textblock"
+
+const STORE_TEXTBLOCK_NAMESPACE = 'textBlock'
 
 export default {
   name: "Collage",
   components: {
     KinesisContainer,
-    KinesisElement,
-    // Polaroid
+    KinesisElement
   },
-  data: () => ({
-    black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png'),
-    logo: require('@/assets/img/monshiners_logo.jpg')
-  }),
   props: {
     src: {
       type: Array,
@@ -115,25 +78,33 @@ export default {
       type: Object,
       default: (() => {})
     },
+  },
+  data: () => ({
+    black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png'),
+    logo: require('@/assets/img/monshiners_logo.jpg')
+  }),
+  methods:{
+    ...mapActions(STORE_TEXTBLOCK_NAMESPACE, {
+      getTextBlock: GET_TEXTBLOCK,
+    }),
+  },
+  computed:{
+    ...mapState(STORE_TEXTBLOCK_NAMESPACE, [
+        'titel',
+        'inhalt'
+    ]),
+  },
+  created() {
+    const id = '31t7T9CD9kHv3kzSbldhOm'
+    this.$store.registerModule(STORE_TEXTBLOCK_NAMESPACE, TextBlock)
+    if (this.$store.state[STORE_TEXTBLOCK_NAMESPACE].id) return
+    this.getTextBlock({locale: i18n.locale, id: id})
+    this.$eventHub.$on('locale-changed', () => {
+      this.getTextBlock({locale: i18n.locale , id: id})
+    })
   }
 }
 </script>
 
 <style scoped>
-.video-container {
-  /* width is set as 100% here. any width can be specified as per requirement */
-  width: 100%;
-  padding-top: 0;
-  height: 100%;
-  position: relative;
-}
-
-.video {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  object-fit: fill !important;
-}
 </style>

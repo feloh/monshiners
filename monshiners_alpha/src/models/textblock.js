@@ -1,12 +1,26 @@
-export class Textblock {
+import api from '../utils/api'
+
+export class TextBlock {
     constructor({
-                    id = null
+                    id = null,
+                    berschrift = '',
+                    identifier = '',
+                    inhalt = []
                 } = {}, includes) {
         this.id = id
-        const obj = includes.Entry.filter(obj => {return obj.sys.id === this.id})
-        this.titel = obj[0].fields.berschrift
-        this.identifier = obj[0].fields.identifier
-        this.inhalt = obj[0].fields.inhalt.content
+
+        if(includes){
+            const obj = includes.Entry.filter(obj => {return obj.sys.id === this.id})
+            this.titel = obj[0].fields.berschrift
+            this.identifier = obj[0].fields.identifier
+            this.inhalt = obj[0].fields.inhalt.content
+        } else {
+            this.titel = berschrift
+            this.identifier = identifier
+            this.inhalt = inhalt.content
+        }
+
+
     }
 }
 export function responseAdapter(response, includes) {
@@ -15,5 +29,13 @@ export function responseAdapter(response, includes) {
         : response;
 
 
-    return new Textblock({ ...fields, ...sys}, includes)
+    return new TextBlock({ ...fields, ...sys}, includes)
+}
+export default {
+    async get(query) {
+        return responseAdapter(await api.getEntries({
+            'locale': query.locale,
+            'sys.id': query.id
+        }))
+    },
 }

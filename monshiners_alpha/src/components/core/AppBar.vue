@@ -41,11 +41,6 @@ import {mapState} from "vuex"
 
 export default {
   name: "Appbar",
-  props: {
-    color:{
-      type:String,
-      default:'primary'
-    }},
   components:{
     Switcher,
     Social,

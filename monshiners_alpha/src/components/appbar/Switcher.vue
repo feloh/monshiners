@@ -10,6 +10,7 @@
       <v-icon>mdi-menu-left-outline</v-icon>
     </v-btn>
     <p
+        v-if="currentTheme"
         class="d-inline my-auto"
         :class="isIntersecting ? 'black--text' : 'white--text'"
     >
@@ -30,7 +31,9 @@
 
 <script>
 import {mapActions, mapState} from "vuex";
-import {SWITCH_THEME} from "@/store/action-types"
+import {GET_THEME, SWITCH_THEME} from "@/store/action-types"
+import ThemeModule from "@/store/modules/theme"
+import i18n from "@/plugins/i18n";
 
 const STORE_THEME_NAMESPACE = 'theme'
 
@@ -39,6 +42,7 @@ export default {
   props: ['color'],
   methods: {
     ...mapActions(STORE_THEME_NAMESPACE, {
+      getTheme: GET_THEME,
       switchTheme: SWITCH_THEME
     }),
   },
@@ -54,6 +58,14 @@ export default {
         this.setIntersection(val)
       }
     }
+  },
+  created() {
+    this.$store.registerModule(STORE_THEME_NAMESPACE, ThemeModule)
+    if (this.$store.state[STORE_THEME_NAMESPACE].id) return
+    this.getTheme({locale: i18n.locale})
+    this.$eventHub.$on('locale-changed', () => {
+      this.getTheme({locale: i18n.locale})
+    })
   }
 }
 </script>

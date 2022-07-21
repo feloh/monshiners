@@ -1,6 +1,5 @@
 <template>
   <v-app>
-    <custom-app-bar/>
     <v-main id="root">
       <v-container class="pa-0" fluid>
         <!--First Section-->
@@ -32,25 +31,17 @@
           </kinesis-element>
         </kinesis-container>
         <!--Second Section-->
-        <div
-            v-intersect="{
-          handler: onIntersect,
-          options: {
-              rootMargin: '0px',
-              threshold: threshold
-          }
-        }"
-        >
+        <intersection :on-intersect="onIntersect" :threshold="threshold">
           <base-card
               m-width="750px"
               style="margin-bottom: 50px"
           >
             <template v-slot:text>
-              {{ beschreibung.content[0].content[0].value }}
+              Text
             </template>
           </base-card>
           <fruits/>
-        </div>
+        </intersection>
         <!--Third Section-->
         <v-parallax
             :height="$vuetify.breakpoint.mdAndUp ? 800 : 500"
@@ -69,17 +60,9 @@
           </v-container>
         </v-parallax>
         <!--Fourth Section-->
-        <div
-            v-intersect="{
-          handler: onIntersect,
-          options: {
-              rootMargin: '0px',
-              threshold: threshold
-          }
-        }"
-        >
-          <collage :src="currentTheme.collage" :about="$store.state.reference"/>
-        </div>
+        <intersection :on-intersect="onIntersect" :threshold="threshold">
+          <about/>
+        </intersection>
         <!--Fifth Section-->
         <v-img
             :height="$vuetify.breakpoint.mdAndUp ? 800 : 500"
@@ -91,18 +74,9 @@
         >
           <bottle :src="produktbild.url"/>
         </v-img>
-        <div
-            v-intersect="{
-          handler: onIntersect,
-          options: {
-              rootMargin: '0px',
-              threshold: threshold
-          }
-        }"
-        >
+        <intersection :on-intersect="onIntersect" :threshold="threshold">
           <gallery :src="currentTheme.detail"/>
-          <custom-footer/>
-        </div>
+        </intersection>>
         <!--Fullscreen Image-->
         <full-screen-image></full-screen-image>
       </v-container>
@@ -112,35 +86,29 @@
 
 <script>
 import {Bottle,Fruits, Gallery, FullScreenImage} from '@/components/home'
-import {AppBar as CustomAppBar, Footer as CustomFooter} from '@/components/core'
-import BaseCard from '@/components/base/Card'
-import Collage from "@/components/About"
+import {Card as BaseCard, Intersection} from '@/components/base'
+import About from "@/components/About"
 import {KinesisElement, KinesisContainer} from 'vue-kinesis'
 import {mapActions, mapState, mapMutations} from 'vuex'
-import {GET_PRODUCT, GET_THEME, GET_REFERENCE} from "@/store/action-types"
+import {GET_PRODUCT} from "@/store/action-types"
 import Product from "@/store/modules/product"
-import ThemeModule from "@/store/modules/theme"
-import Reference from "@/store/modules/reference"
 
 import i18n from '@//plugins/i18n'
 
-
 const STORE_THEME_NAMESPACE = 'theme'
 const STORE_PRODUCT_NAMESPACE = 'product'
-const STORE_REFERENCE_NAMESPACE = 'reference'
 
 export default {
   name: 'Home',
   components: {
-    Collage,
+    About,
     Fruits,
-    CustomAppBar,
-    CustomFooter,
     Bottle,
     Gallery,
     BaseCard,
     KinesisContainer,
     KinesisElement,
+    Intersection,
     FullScreenImage
   },
   data: () => ({
@@ -153,12 +121,6 @@ export default {
   methods: {
     ...mapActions(STORE_PRODUCT_NAMESPACE, {
       getProduct: GET_PRODUCT,
-    }),
-    ...mapActions(STORE_THEME_NAMESPACE, {
-      getTheme: GET_THEME
-    }),
-    ...mapActions(STORE_REFERENCE_NAMESPACE, {
-      getReference: GET_REFERENCE,
     }),
     ...mapMutations(['setIntersection', 'setIndex']),
     // eslint-disable-next-line
@@ -181,7 +143,6 @@ export default {
       'produktbild',
       'beschreibung'
     ]),
-    ...mapState(STORE_REFERENCE_NAMESPACE, []),
     isIntersecting: {
       get() {
         return this.$store.state.intersection
@@ -198,25 +159,8 @@ export default {
     this.$store.registerModule(STORE_PRODUCT_NAMESPACE, Product)
     if (this.$store.state[STORE_PRODUCT_NAMESPACE].id) return
     this.getProduct(i18n.locale)
-
     this.$eventHub.$on('locale-changed', () => {
       this.getProduct(i18n.locale)
-    })
-
-    this.$store.registerModule(STORE_THEME_NAMESPACE, ThemeModule)
-    if (this.$store.state[STORE_THEME_NAMESPACE].id) return
-    this.getTheme({locale: i18n.locale})
-
-    this.$eventHub.$on('locale-changed', () => {
-      this.getTheme({locale: i18n.locale})
-    })
-
-    this.$store.registerModule(STORE_REFERENCE_NAMESPACE, Reference)
-    if (this.$store.state[STORE_REFERENCE_NAMESPACE].id) return
-    this.getReference({locale: i18n.locale, id: '2UXMuzteex84qEplFFuCvV'})
-
-    this.$eventHub.$on('locale-changed', () => {
-      this.getReference({locale: i18n.locale , id:'2UXMuzteex84qEplFFuCvV'})
     })
   }
 }
@@ -227,40 +171,10 @@ export default {
 body
   overflow-x: hidden
 
-#videoDiv
-  width: 100%
-  height: 1000px
-  position: relative
-  overflow: hidden
-
-#video
-  position: absolute
-  z-index: 0
-  height: 100%
-
-
 .v-speed-dial
   position: absolute
 
 .v-btn--floating
   position: relative
 
-.fixed_backround
-  min-height: 100%
-  position: relative
-  overflow: hidden
-
-  &::before
-    background-repeat: no-repeat
-    background-attachment: fixed
-    background-size: cover
-    content: ''
-    height: 100%
-    left: 0
-    top: 0
-    width: 100%
-    position: absolute
-    z-index: -0
-    @media #{map-get($display-breakpoints, 'md-and-down')}
-      background-image: none
 </style>

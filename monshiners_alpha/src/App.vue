@@ -2,15 +2,17 @@
   <div>
     <v-app class="application">
       <custom-drawer/>
+      <custom-app-bar/>
       <consent></consent>
       <router-view/>
+      <custom-footer/>
     </v-app>
   </div>
 </template>
 
 <script>
 import Consent from '@/components/core/Consent'
-import CustomDrawer from '@/components/core/Drawer'
+import {AppBar as CustomAppBar, Drawer as CustomDrawer, Footer as CustomFooter} from '@/components/core'
 
 export default {
   name: "App",
@@ -37,7 +39,9 @@ export default {
   },
   components: {
     Consent,
-    CustomDrawer
+    CustomAppBar,
+    CustomDrawer,
+    CustomFooter
   }
 }
 </script>

@@ -5,3 +5,4 @@ export const CHANGE_THEME = `CHANGE_THEME`;
 export const SET_REFERENCE = `SET_REFERENCE`;
 export const SET_INGREDIENTS = `SET_REFERENCE`;
 export const SET_SEASON = `SET_SEASON`;
+export const SET_TEXTBLOCK = `SET_TEXTBLOCk`;
