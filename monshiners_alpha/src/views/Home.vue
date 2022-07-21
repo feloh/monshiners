@@ -8,7 +8,7 @@
             <v-img
                 v-if="currentTheme"
                 :height="$vuetify.breakpoint.mdAndUp ? 750 : 400"
-                :lazy-src="`${lazy}?h=200&fit=thumb&fm=jpg&fl=progressive&q=50`"
+                :lazy-src="`${currentTheme.jumbotron.url}?h=200&fit=thumb&fm=jpg&fl=progressive&q=50`"
                 :src="`${currentTheme.jumbotron.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
                 class="d-flex align-center"
                 gradient="to top, rgba(0,0,0,0), rgba(0,0,0,0.40)"
@@ -33,14 +33,7 @@
         </kinesis-container>
         <!--Second Section-->
         <intersection :on-intersect="onIntersect" :threshold="threshold">
-          <base-card
-              m-width="750px"
-              style="margin-bottom: 50px"
-          >
-            <template v-slot:text>
-              {{  }}
-            </template>
-          </base-card>
+          <intro :inhalt="INTRO_INHALT" />
           <fruits/>
         </intersection>
         <!--Third Section-->
@@ -62,7 +55,7 @@
         </v-parallax>
         <!--Fourth Section-->
         <intersection :on-intersect="onIntersect" :threshold="threshold">
-          <about/>
+          <about :titel="ABOUT_TITLE" :inhalt="ABOUT_INHALT" />
         </intersection>
         <!--Fifth Section-->
         <v-img
@@ -73,11 +66,10 @@
             gradient="to bottom, rgba(0,0,0,0), rgba(0,0,0,0.40)"
             style="padding-bottom: 50px"
         >
-          <bottle :src="produktbild.url"/>
         </v-img>
         <intersection :on-intersect="onIntersect" :threshold="threshold">
           <gallery :src="currentTheme.detail"/>
-        </intersection>>
+        </intersection>
         <!--Fullscreen Image-->
         <full-screen-image></full-screen-image>
       </v-container>
@@ -86,27 +78,29 @@
 </template>
 
 <script>
-import {Bottle,Fruits, Gallery, FullScreenImage} from '@/components/home'
-import {Card as BaseCard, Intersection} from '@/components/base'
+import {Fruits, Gallery, FullScreenImage, Intro} from '@/components/home'
+import {Intersection} from '@/components/base'
 import About from "@/components/About"
 import {KinesisElement, KinesisContainer} from 'vue-kinesis'
 import {mapActions, mapState, mapMutations} from 'vuex'
-import {GET_PRODUCT} from "@/store/action-types"
+import {GET_PRODUCT, GET_REFERENCE} from "@/store/action-types"
 import Product from "@/store/modules/product"
+import Reference from "@/store/modules/reference"
 
 import i18n from '@//plugins/i18n'
 
+
 const STORE_THEME_NAMESPACE = 'theme'
 const STORE_PRODUCT_NAMESPACE = 'product'
+const STORE_REFERENCE_NAMESPACE = 'reference'
 
 export default {
   name: 'Home',
   components: {
+    Intro,
     About,
     Fruits,
-    Bottle,
     Gallery,
-    BaseCard,
     KinesisContainer,
     KinesisElement,
     Intersection,
@@ -117,11 +111,18 @@ export default {
     white: require('@/assets/geometry/monshiners_schriftzug_weiss.png'),
     black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png'),
     lazy: require('@/assets/img/monshiners_obstbrand_logo.jpg'),
-    t: null
+    t: null,
+    loading: false,
+    INTRO_INHALT: '',
+    ABOUT_TITLE:'',
+    ABOUT_INHALT:''
   }),
   methods: {
     ...mapActions(STORE_PRODUCT_NAMESPACE, {
       getProduct: GET_PRODUCT,
+    }),
+    ...mapActions(STORE_REFERENCE_NAMESPACE, {
+      getReference: GET_REFERENCE,
     }),
     ...mapMutations(['setIntersection', 'setIndex']),
     // eslint-disable-next-line
@@ -132,8 +133,7 @@ export default {
 
       if (ratio === 0) this.isIntersecting = false
       else if (ratio < 1) {
-        if (boundingRect.top < intersectionRect.top) this.isIntersecting = true
-        else this.isIntersecting = false
+        this.isIntersecting = boundingRect.top < intersectionRect.top;
       } else this.isIntersecting = true
     }
   },
@@ -143,6 +143,9 @@ export default {
     ...mapState(STORE_PRODUCT_NAMESPACE, [
       'produktbild',
       'beschreibung'
+    ]),
+    ...mapState(STORE_REFERENCE_NAMESPACE, [
+        'bestandteile'
     ]),
     isIntersecting: {
       get() {
@@ -156,13 +159,26 @@ export default {
       return [...Array(100).keys()].map(x => x / 100)
     }
   },
-  created() {
+  async created() {
+    this.loading = true
+    const id = '2UXMuzteex84qEplFFuCvV'
+    this.$store.registerModule(STORE_REFERENCE_NAMESPACE, Reference)
+    if (this.$store.state[STORE_REFERENCE_NAMESPACE].id) return
+    await this.getReference({locale: i18n.locale, id: id})
+    this.INTRO_INHALT = this.bestandteile[0].inhalt[0].content[0].value
+    this.ABOUT_TITLE = this.bestandteile[1].titel
+    this.ABOUT_INHALT = this.bestandteile[1].inhalt[0].content[0].value
+    this.$eventHub.$on('locale-changed', () => {
+      this.getReference({locale: i18n.locale, id: id})
+    })
+
     this.$store.registerModule(STORE_PRODUCT_NAMESPACE, Product)
     if (this.$store.state[STORE_PRODUCT_NAMESPACE].id) return
     this.getProduct(i18n.locale)
     this.$eventHub.$on('locale-changed', () => {
       this.getProduct(i18n.locale)
     })
+    this.loading = false
   }
 }
 </script>

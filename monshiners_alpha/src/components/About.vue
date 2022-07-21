@@ -35,16 +35,14 @@
                   class="mx-auto"
               />
               <v-card-subtitle
-                  v-if="titel"
                   class="text-md-h6 text-uppercase font-weight-medium mx-auto text-center"
               >
                 {{titel}}
               </v-card-subtitle>
               <v-card-text
-                  v-if="inhalt"
                   class="font-weight-medium text-md-subtitle-1"
               >
-                {{inhalt[0].content[0].value}}
+                {{inhalt}}
               </v-card-text>
             </v-card>
         </kinesis-element>
@@ -56,12 +54,6 @@
 
 <script>
 import{KinesisElement, KinesisContainer} from 'vue-kinesis'
-import i18n from "@/plugins/i18n"
-import {mapActions, mapState} from "vuex"
-import {GET_TEXTBLOCK} from "@/store/action-types"
-import TextBlock from "@/store/modules/textblock"
-
-const STORE_TEXTBLOCK_NAMESPACE = 'textBlock'
 
 export default {
   name: "Collage",
@@ -69,40 +61,20 @@ export default {
     KinesisContainer,
     KinesisElement
   },
-  props: {
-    src: {
-      type: Array,
-      default: (() => [])
-    },
-    about: {
-      type: Object,
-      default: (() => {})
-    },
-  },
   data: () => ({
     black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png'),
-    logo: require('@/assets/img/monshiners_logo.jpg')
+    logo: require('@/assets/img/monshiners_logo.jpg'),
   }),
-  methods:{
-    ...mapActions(STORE_TEXTBLOCK_NAMESPACE, {
-      getTextBlock: GET_TEXTBLOCK,
-    }),
+  props: {
+    inhalt: {
+      type: String,
+      default: (() => '')
+    },
+    titel: {
+      type: String,
+      default: (() => 'Ups. Da ist was schiefgelaufen.')
+    },
   },
-  computed:{
-    ...mapState(STORE_TEXTBLOCK_NAMESPACE, [
-        'titel',
-        'inhalt'
-    ]),
-  },
-  created() {
-    const id = '31t7T9CD9kHv3kzSbldhOm'
-    this.$store.registerModule(STORE_TEXTBLOCK_NAMESPACE, TextBlock)
-    if (this.$store.state[STORE_TEXTBLOCK_NAMESPACE].id) return
-    this.getTextBlock({locale: i18n.locale, id: id})
-    this.$eventHub.$on('locale-changed', () => {
-      this.getTextBlock({locale: i18n.locale , id: id})
-    })
-  }
 }
 </script>
 

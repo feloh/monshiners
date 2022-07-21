@@ -14,7 +14,6 @@ export class Reference {
 }
 
 export function responseAdapter(response) {
-    console.log(response)
     const {fields, sys} = response.sys.type === `Array`
         ? response.items[0]
         : response
