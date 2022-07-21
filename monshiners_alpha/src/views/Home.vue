@@ -6,6 +6,7 @@
         <kinesis-container>
           <kinesis-element :strength="0.2" type="scale">
             <v-img
+                v-if="currentTheme"
                 :height="$vuetify.breakpoint.mdAndUp ? 750 : 400"
                 :lazy-src="`${lazy}?h=200&fit=thumb&fm=jpg&fl=progressive&q=50`"
                 :src="`${currentTheme.jumbotron.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
@@ -37,7 +38,7 @@
               style="margin-bottom: 50px"
           >
             <template v-slot:text>
-              Text
+              {{  }}
             </template>
           </base-card>
           <fruits/>

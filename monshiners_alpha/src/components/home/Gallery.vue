@@ -70,7 +70,6 @@ export default {
           rG = this.array(this.src.length, 4)
           break
       }
-      console.log(this.$vuetify.breakpoint.name)
       return rG
     }
   }

@@ -8,6 +8,7 @@
       ref="appBar"
   >
     <v-btn
+        aria-label="Menu"
         v-if="$vuetify.breakpoint.smAndDown"
         color="darkgreen"
         elevation="0"

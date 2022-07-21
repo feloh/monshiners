@@ -1,6 +1,7 @@
 <template>
   <v-col cols="auto" align-self="center">
   <v-btn
+      :aria-label="name"
       :href=" src"
       target="_blank"
       rel="noopener"
@@ -30,6 +31,10 @@ export default {
       default:''
     },
     src:{
+      type:String,
+      default:'/*'
+    },
+    name:{
       type:String,
       default:'/*'
     }

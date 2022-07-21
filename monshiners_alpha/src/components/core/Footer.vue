@@ -25,6 +25,7 @@
           class="align-center"
           v-for="s in socials"
           :key="socials.indexOf(s)"
+          :name="s.name"
           :color="s.color"
           :src="s.href"
           :icon="s.icon"

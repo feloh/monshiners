@@ -5,7 +5,7 @@
       class="pa-0"
   >
     <kinesis-container event="scroll">
-      <kinesis-element :strength="direction(index)" type="translate" axis="x" maxx="5">
+      <kinesis-element :strength="direction(index)" type="translate" axis="x" :max-x="3">
         <v-container fluid>
           <v-row justify="space-around" justify-md="start">
             <v-col
