@@ -34,7 +34,6 @@
         <!--Second Section-->
         <intersection :on-intersect="onIntersect" :threshold="threshold">
           <intro :inhalt="INTRO_INHALT" />
-          <fruits/>
         </intersection>
         <!--Third Section-->
         <v-parallax
@@ -78,20 +77,18 @@
 </template>
 
 <script>
-import {Fruits, Gallery, FullScreenImage, Intro} from '@/components/home'
+import {Gallery, FullScreenImage, Intro} from '@/components/home'
 import {Intersection} from '@/components/base'
 import About from "@/components/About"
 import {KinesisElement, KinesisContainer} from 'vue-kinesis'
 import {mapActions, mapState, mapMutations} from 'vuex'
-import {GET_PRODUCT, GET_REFERENCE} from "@/store/action-types"
-import Product from "@/store/modules/product"
+import {GET_REFERENCE} from "@/store/action-types"
 import Reference from "@/store/modules/reference"
 
 import i18n from '@//plugins/i18n'
 
 
 const STORE_THEME_NAMESPACE = 'theme'
-const STORE_PRODUCT_NAMESPACE = 'product'
 const STORE_REFERENCE_NAMESPACE = 'reference'
 
 export default {
@@ -99,7 +96,6 @@ export default {
   components: {
     Intro,
     About,
-    Fruits,
     Gallery,
     KinesisContainer,
     KinesisElement,
@@ -118,9 +114,6 @@ export default {
     ABOUT_INHALT:''
   }),
   methods: {
-    ...mapActions(STORE_PRODUCT_NAMESPACE, {
-      getProduct: GET_PRODUCT,
-    }),
     ...mapActions(STORE_REFERENCE_NAMESPACE, {
       getReference: GET_REFERENCE,
     }),
@@ -140,10 +133,6 @@ export default {
   computed: {
     ...mapState(['socials']),
     ...mapState(STORE_THEME_NAMESPACE, ['currentTheme']),
-    ...mapState(STORE_PRODUCT_NAMESPACE, [
-      'produktbild',
-      'beschreibung'
-    ]),
     ...mapState(STORE_REFERENCE_NAMESPACE, [
         'bestandteile'
     ]),
@@ -161,6 +150,7 @@ export default {
   },
   async created() {
     this.loading = true
+
     const id = '2UXMuzteex84qEplFFuCvV'
     this.$store.registerModule(STORE_REFERENCE_NAMESPACE, Reference)
     if (this.$store.state[STORE_REFERENCE_NAMESPACE].id) return
@@ -172,12 +162,6 @@ export default {
       this.getReference({locale: i18n.locale, id: id})
     })
 
-    this.$store.registerModule(STORE_PRODUCT_NAMESPACE, Product)
-    if (this.$store.state[STORE_PRODUCT_NAMESPACE].id) return
-    this.getProduct(i18n.locale)
-    this.$eventHub.$on('locale-changed', () => {
-      this.getProduct(i18n.locale)
-    })
     this.loading = false
   }
 }

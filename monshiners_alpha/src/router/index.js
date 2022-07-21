@@ -24,7 +24,6 @@ const router = new VueRouter(
 
         return goTo(scrollTo)
     },
-        mode: 'history',
     routes: [
         {
             path: '/',
