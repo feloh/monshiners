@@ -1,8 +1,6 @@
 import api from "@/utils/api"
 import {responseAdapter as fruitResponseAdapter} from "@/models/fruit"
 
-export const t = {'content_type':'theme'}
-
 export class Ingredients {
     constructor({
                     id = null,

@@ -2,7 +2,8 @@
   <kinesis-container>
     <kinesis-element :type="$vuetify.breakpoint.smAndDown ? 'translate' : 'scale'" :strength="$vuetify.breakpoint.smAndDown ? 5 : 0.5">
       <v-img
-          :src="`${bottle}?w=450&fl=progressive&q=100`"
+          :src="`${src}?w=450&fl=progressive&q=100`"
+          :lazy-src="`${src}?w=450&fl=progressive&q=100`"
           :width="$vuetify.breakpoint.mdAndUp ? 250 : 100"
           class="mx-auto"
       />

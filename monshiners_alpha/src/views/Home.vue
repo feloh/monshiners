@@ -33,7 +33,7 @@
         </kinesis-container>
         <!--Second Section-->
         <intersection :on-intersect="onIntersect" :threshold="threshold">
-          <intro :inhalt="INTRO_INHALT" />
+          <intro :inhalt="INTRO_INHALT"/>
         </intersection>
         <!--Third Section-->
         <v-parallax
@@ -54,7 +54,7 @@
         </v-parallax>
         <!--Fourth Section-->
         <intersection :on-intersect="onIntersect" :threshold="threshold">
-          <about :titel="ABOUT_TITLE" :inhalt="ABOUT_INHALT" />
+          <about :titel="ABOUT_TITLE" :inhalt="ABOUT_INHALT"/>
         </intersection>
         <!--Fifth Section-->
         <v-img
@@ -87,7 +87,6 @@ import Reference from "@/store/modules/reference"
 
 import i18n from '@//plugins/i18n'
 
-
 const STORE_THEME_NAMESPACE = 'theme'
 const STORE_REFERENCE_NAMESPACE = 'reference'
 
@@ -110,8 +109,8 @@ export default {
     t: null,
     loading: false,
     INTRO_INHALT: '',
-    ABOUT_TITLE:'',
-    ABOUT_INHALT:''
+    ABOUT_TITLE: '',
+    ABOUT_INHALT: ''
   }),
   methods: {
     ...mapActions(STORE_REFERENCE_NAMESPACE, {
@@ -134,7 +133,7 @@ export default {
     ...mapState(['socials']),
     ...mapState(STORE_THEME_NAMESPACE, ['currentTheme']),
     ...mapState(STORE_REFERENCE_NAMESPACE, [
-        'bestandteile'
+      'bestandteile'
     ]),
     isIntersecting: {
       get() {
@@ -158,8 +157,12 @@ export default {
     this.INTRO_INHALT = this.bestandteile[0].inhalt[0].content[0].value
     this.ABOUT_TITLE = this.bestandteile[1].titel
     this.ABOUT_INHALT = this.bestandteile[1].inhalt[0].content[0].value
-    this.$eventHub.$on('locale-changed', () => {
-      this.getReference({locale: i18n.locale, id: id})
+
+    this.$eventHub.$on('locale-changed', async () => {
+      await this.getReference({locale: i18n.locale, id: id})
+      this.INTRO_INHALT = this.bestandteile[0].inhalt[0].content[0].value
+      this.ABOUT_TITLE = this.bestandteile[1].titel
+      this.ABOUT_INHALT = this.bestandteile[1].inhalt[0].content[0].value
     })
 
     this.loading = false

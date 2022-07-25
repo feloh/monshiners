@@ -17,10 +17,10 @@
           class="bottle-container"
           :style="$vuetify.breakpoint.smAndDown ? 'height:200px' : 'height:450px'"
       >
-        <bottle v-for="(n,i) in 5"
-                :key="n"
-                :class="wedge(i)"
-                />
+       <bottle v-for="(img,i) in productImg"
+                :key="img.id"
+                :src="img.produktbild.url"
+                :class="wedge(i)"/>
       </v-row>
     </template>
     <template v-slot:actions>
@@ -29,6 +29,7 @@
             color="darkgreen"
             elevation="0"
             dark
+            disabled
         >
           zu den Produkten
         </v-btn>
@@ -42,6 +43,14 @@
 import {Card as BaseCard} from '@/components/base'
 import {Bottle} from '@/components/home'
 
+import {mapActions, mapState} from 'vuex'
+import {GETALL_PRODUCT} from "@/store/action-types"
+import Product from "@/store/modules/product"
+
+import i18n from '@//plugins/i18n'
+
+const STORE_PRODUCT_NAMESPACE = 'product'
+
 export default {
   name: "intro",
   components: {
@@ -49,12 +58,27 @@ export default {
     Bottle,
   },
   props: ['inhalt'],
-  methods:{
+  methods: {
+    ...mapActions(STORE_PRODUCT_NAMESPACE, {
+      getAllProduct: GETALL_PRODUCT,
+    }),
     wedge(i){
       if(i === 0) return 'bottle'
       if(i % 2 === 0) return `bottle left-${i}`
       else return `bottle right-${i}`
     }
+  },
+  computed: {
+    ...mapState(STORE_PRODUCT_NAMESPACE, ['productImg']),
+  },
+ async created() {
+    this.$store.registerModule(STORE_PRODUCT_NAMESPACE, Product)
+    if (this.$store.state[STORE_PRODUCT_NAMESPACE].id) return
+    await this.getAllProduct({locale: i18n.locale})
+
+    this.$eventHub.$on('locale-changed', () => {
+    this.getAllProduct({locale: i18n.locale})
+    })
   }
 }
 </script>

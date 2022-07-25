@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-export const SET_PRODUCT = `SET_PRODUCT`;
+export const SETALL_PRODUCT = `SET_PRODUCT`;
 export const SET_THEME = `SET_THEME`;
 export const CHANGE_THEME = `CHANGE_THEME`;
 export const SET_REFERENCE = `SET_REFERENCE`;

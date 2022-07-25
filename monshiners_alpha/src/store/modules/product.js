@@ -1,18 +1,21 @@
-import { GET_PRODUCT } from '../action-types'
-import { SET_PRODUCT } from '../mutation-types'
-import ProductModel, { Product } from '../../models/product'
+import {GETALL_PRODUCT} from '../action-types'
+import {SETALL_PRODUCT} from '../mutation-types'
+import ProductModel, {Product} from '../../models/product'
 
 export default {
     namespaced: true,
     actions: {
-        async [GET_PRODUCT]({ commit }, locale){
-            commit(SET_PRODUCT, await ProductModel.get(locale))
+        async [GETALL_PRODUCT]({commit}, locale) {
+            commit(SETALL_PRODUCT, await ProductModel.getAll(locale))
         },
     },
     mutations: {
-        [SET_PRODUCT](state, Product) {
-            Object.assign(state, Product)
+        [SETALL_PRODUCT](state, Products) {
+            state.productImg.push(...Products)
         },
     },
-    state: () => new Product(),
+    state: () => ({
+        currentProduct: new Product(),
+        productImg: []
+    }),
 }
