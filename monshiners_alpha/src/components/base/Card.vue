@@ -10,6 +10,12 @@
           >
             <slot name="text"/>
           </v-card-text>
+          <v-card-text>
+            <slot name="element"/>
+          </v-card-text>
+          <v-card-actions class="pa-7">
+            <slot name="actions"/>
+          </v-card-actions>
         </v-card>
       </v-container>
 </template>

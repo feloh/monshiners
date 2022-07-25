@@ -8,7 +8,7 @@
           order-md="1"
           align-self="center"
       >
-        <kinesis-element :strength=30 type="translate" axis="x" :max-x="10"	 :active="!this.$vuetify.breakpoint.mobile">
+        <kinesis-element :strength=30 type="translate" axis="x" :max-x="10"	 >
         <v-img
             :src="logo"
             :height="$vuetify.breakpoint.mdAndUp ? 500 : 200"
@@ -23,15 +23,15 @@
           order-md="2"
           align-self="center"
       >
-        <kinesis-element :strength=-30 type="translate" axis="x" :max-x="10"	 :active="!this.$vuetify.breakpoint.mobile">
+        <kinesis-element :strength=-30 type="translate" axis="x" :max-x="10">
             <v-card
                 max-width="750px"
                 class="mx-auto"
             >
               <v-img
                   :src="black"
-                  min-width="100px"
-                  max-width="400px"
+                  min-width="75px"
+                  max-width="300px"
                   class="mx-auto"
               />
               <v-card-subtitle
