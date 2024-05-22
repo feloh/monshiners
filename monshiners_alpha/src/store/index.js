@@ -25,13 +25,14 @@ export default new Vuex.Store({
       }
     ],
     links: [
-      'aboutUs',
-      'products',
-      'shop'
+    /*  'aboutUs',
+      'products',*/
+      'store'
     ],
     themes: [],
     intersection: false,
     drawerState: false,
+    cartProductsQuantity: 0
   },
   mutations: {
     setSrcFullScreenImage(state, src){
@@ -46,6 +47,9 @@ export default new Vuex.Store({
       state.drawerState = data
     },
     setIntersection: set('intersection'),
+    setCartProductsQuantity (state, quantity){
+      state.cartProductsQuantity = quantity
+    }
 
   },
   getters: {

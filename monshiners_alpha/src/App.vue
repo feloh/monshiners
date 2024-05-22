@@ -42,7 +42,7 @@ export default {
     CustomAppBar,
     CustomDrawer,
     CustomFooter
-  }
+  },
 }
 </script>
 

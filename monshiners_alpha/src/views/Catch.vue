@@ -20,7 +20,7 @@
                 dark
                 tile
                 class="my-4 font-weight-medium"
-                href="https://simply-kaschemm.com/whiskey-whisky/Sea-Shepherd-Islay-Single-Malt-Whisky"
+                href="https://monshiners.de/#/"
             >
               {{ $t("catch.btn") }}
             </v-btn>

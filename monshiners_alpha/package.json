@@ -9,6 +9,7 @@
     "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/locales/**/*.json'"
   },
   "dependencies": {
+    "@ecwid/sdk": "^0.8.0",
     "contentful": "^8.1.7",
     "core-js": "^3.6.5",
     "jquery": "^3.5.1",
@@ -21,6 +22,7 @@
     "vue-meta": "^2.4.0",
     "vue-parallaxy": "^1.1.1",
     "vue-router": "^3.2.0",
+    "vue-video-section": "^1.0.2",
     "vuetify": "^2.2.11",
     "vuetify-video-parallax": "^1.0.2",
     "vuex": "^3.4.0"

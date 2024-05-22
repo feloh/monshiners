@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import goTo from 'vuetify/es5/services/goto'
 import Cookies from 'js-cookie'
 import Home from '../views/Home.vue'
+import Store from '../views/Store.vue'
 import Catch from '../views/Catch.vue'
 import AgeConfirmation from '../views/AgeConfirmation.vue'
 import Meta from 'vue-meta'
@@ -13,6 +14,7 @@ Vue.use(Meta)
 
 const router = new VueRouter(
     {
+        mode: 'history',
     scrollBehavior: (to, from, savedPosition) => {
         let scrollTo = 0
 
@@ -50,9 +52,9 @@ const router = new VueRouter(
             }
         },
         {
-            path: '/hierkannstekaufen',
-            name: 'Shop',
-            component: Home,
+            path: '/store',
+            name: 'Store',
+            component: Store,
             meta: {
                 requiresAge: true
             }

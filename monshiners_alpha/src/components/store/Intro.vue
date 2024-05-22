@@ -1,6 +1,6 @@
 <template>
   <base-card>
-    <template
+<!--    <template
         v-slot:text
     >
     <div class="d-flex mx-auto text-center" style="max-width: 750px">
@@ -9,7 +9,7 @@
     <div class="d-flex justify-center">
       <p class="my-7">Jahrgang 2022</p>
     </div>
-  </template>
+  </template>-->
  <template v-slot:element>
            <ecwid class="mx-3"/>
    <!--   <v-row
