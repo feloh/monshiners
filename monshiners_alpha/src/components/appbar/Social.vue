@@ -5,11 +5,11 @@
       :href=" src"
       target="_blank"
       rel="noopener"
-      dark
+      variant="text"
       rounded
   >
       <v-icon
-          large
+          size="large"
           :color="color"
       >
         {{icon}}

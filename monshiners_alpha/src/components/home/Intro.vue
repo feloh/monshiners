@@ -48,7 +48,7 @@ import {mapActions, mapState} from 'vuex'
 import {GETALL_PRODUCT} from "@/store/action-types"
 import Product from "@/store/modules/product"
 
-import i18n from '@//plugins/i18n'
+import i18n from '@/plugins/i18n'
 
 
 
@@ -80,7 +80,7 @@ export default {
     if (this.$store.state[STORE_PRODUCT_NAMESPACE].id) return
     await this.getAllProduct({locale: i18n.locale})
 
-    this.$eventHub.$on('locale-changed', () => {
+    this.$eventHub.on('locale-changed', () => {
     this.getAllProduct({locale: i18n.locale})
     })
   }

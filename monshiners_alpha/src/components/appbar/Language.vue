@@ -6,9 +6,10 @@
     >
       <template v-slot:activator>
         <v-btn
-            color="darkgreen"
+            color="accent1"
             elevation="0"
-            dark
+            variant="flat"
+            class="text-white"
             v-model="fab"
         >
           <v-icon v-if="fab">
@@ -22,18 +23,20 @@
         </v-btn>
       </template>
       <v-btn
-          :color="isIntersecting ? 'darkgreen' : 'white'"
-          fab
-          small
+          :color="isIntersecting ? 'accent1' : 'white'"
+          variant="flat"
+          size="small"
+          rounded="lg"
           class="text-subtitle-1 font-weight-bold"
           @click="changeLocale('pl')"
       >
         {{$t('lng.plt')}}
       </v-btn>
       <v-btn
-          fab
-          small
-          :color="isIntersecting ? 'darkgreen' : 'white'"
+          variant="flat"
+          size="small"
+          :color="isIntersecting ? 'accent1' : 'white'"
+          rounded="lg"
           class="text-subtitle-1 font-weight-bold"
           @click="changeLocale('de')"
       >
@@ -43,7 +46,7 @@
 </template>
 
 <script>
-import i18n from '@//plugins/i18n'
+import i18n from '@/plugins/i18n'
 import {mapState, mapMutations} from "vuex"
 
 export default {
@@ -55,7 +58,7 @@ export default {
     ...mapMutations(['setIntersection']),
     changeLocale (locale) {
       i18n.locale = locale
-      this.$eventHub.$emit('locale-changed')
+      this.$eventHub.emit('locale-changed')
     },
   },
   computed:{

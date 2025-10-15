@@ -6,7 +6,7 @@
     <v-container fluid class="pt-md-10">
       <v-row
           justify="center"
-          no-gutters
+          class="ma-0"
       >
         <span
             class="text-md-h5 font-weight-bold"
@@ -18,7 +18,7 @@
     <v-container fluid>
     <v-row
         justify="center"
-        no-gutters
+        class="ma-0"
         style="height: 50px"
     >
       <social
@@ -36,13 +36,13 @@
     <v-container fluid>
     <v-row
         justify="center"
-        no-gutters
+        class="ma-0"
     >
       <v-btn
           v-for="link in links"
           :key="link"
-          text
-          rounded
+          variant="text"
+          rounded="lg"
           class="my-2 text-subtitle-1 font-weight-medium"
           :to="`/impressum#${link}`"
       >

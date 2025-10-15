@@ -8,8 +8,8 @@
           class="mx-auto"
       />
       <p class="d-flex flex-column" v-if="description">
-        <span class="text-center text-h5 black--text">Name</span>
-        <span class="text-center text-h5 black--text">Jahrgang</span>
+        <span class="text-center text-h5 text-black">Name</span>
+        <span class="text-center text-h5 text-black">Jahrgang</span>
       </p>
     </kinesis-element>
   </kinesis-container>
@@ -17,6 +17,7 @@
 
 <script>
 import {KinesisElement, KinesisContainer} from 'vue-kinesis'
+import bottleImage from '@/assets/img/Monshiners_Obstbrand_Quitte_35cl_klein.png'
 
 export default {
 name: "Bottle",
@@ -35,7 +36,7 @@ name: "Bottle",
     }
   },
   data:() => ({
-    bottle: require('@/assets/img/Monshiners_Obstbrand_Quitte_35cl_klein.png')
+    bottle: bottleImage
 })
 }
 </script>

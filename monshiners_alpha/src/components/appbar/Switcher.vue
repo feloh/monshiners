@@ -2,9 +2,8 @@
   <div>
     <v-btn
         class="d-inline"
-        color="transparent"
-        elevation="0"
-        :dark="!isIntersecting"
+        variant="text"
+        :class="isIntersecting ? 'text-black' : 'text-white'"
         @click="switchTheme(-1)"
     >
       <v-icon>mdi-menu-left-outline</v-icon>
@@ -12,15 +11,14 @@
     <p
         v-if="currentTheme"
         class="d-inline my-auto"
-        :class="isIntersecting ? 'black--text' : 'white--text'"
+        :class="isIntersecting ? 'text-black' : 'text-white'"
     >
       {{ currentTheme.name }}
     </p>
     <v-btn
         class="d-inline"
-        color="transparent"
-        elevation="0"
-        :dark="!isIntersecting"
+        variant="text"
+        :class="isIntersecting ? 'text-black' : 'text-white'"
         @click="switchTheme(+1)"
     >
       <v-icon>mdi-menu-right-outline</v-icon>
@@ -63,7 +61,7 @@ export default {
     this.$store.registerModule(STORE_THEME_NAMESPACE, ThemeModule)
     if (this.$store.state[STORE_THEME_NAMESPACE].id) return
     this.getTheme({locale: i18n.locale})
-    this.$eventHub.$on('locale-changed', () => {
+    this.$eventHub.on('locale-changed', () => {
       this.getTheme({locale: i18n.locale})
     })
   }

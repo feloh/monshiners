@@ -1,8 +1,7 @@
 <template>
   <v-navigation-drawer
-      class="darkgreen accent-4"
+      color="primary"
       app
-      dark
       v-model="drawerState">
     <v-list-item>
       <v-list-item-content>
@@ -21,8 +20,7 @@
     </v-list-item>
       <v-divider></v-divider>
       <v-list
-          dense
-          nav
+          density="compact"
       >
         <v-list-item v-for="l in links"
                      :key="`s-${l}`"
@@ -35,26 +33,22 @@
       </v-list>
     <v-divider></v-divider>
     <v-list
-        dense
-        nav
+        density="compact"
     >
       <v-list-item v-for="(s,i) in socials"
                    :key="`s-${i}`"
                    :href="s.href"
+                   target="_blank"
+                   rel="noopener"
+                   :prepend-icon="s.icon"
       >
-        <v-list-item-icon>
-          <v-icon>{{ s.icon }}</v-icon>
-        </v-list-item-icon>
-        <v-list-item-content>
-          <v-list-item-title>{{ s.name }}</v-list-item-title>
-        </v-list-item-content>
+        <v-list-item-title>{{ s.name }}</v-list-item-title>
       </v-list-item>
     </v-list>
     <v-divider></v-divider>
     <v-spacer></v-spacer>
     <v-list
-        dense
-        nav
+        density="compact"
     >
       <v-list-item v-for="i in imprint"
                    :key="`s-${i}`"

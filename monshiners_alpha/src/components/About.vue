@@ -54,6 +54,8 @@
 
 <script>
 import{KinesisElement, KinesisContainer} from 'vue-kinesis'
+import blackLogo from '@/assets/geometry/monshiners_schriftzug_schwarz.png'
+import monshinersLogo from '@/assets/img/monshiners_logo.jpg'
 
 export default {
   name: "Collage",
@@ -62,8 +64,8 @@ export default {
     KinesisElement
   },
   data: () => ({
-    black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png'),
-    logo: require('@/assets/img/monshiners_logo.jpg'),
+    black: blackLogo,
+    logo: monshinersLogo,
   }),
   props: {
     inhalt: {

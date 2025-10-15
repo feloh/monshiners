@@ -4,20 +4,20 @@
       fixed
       color="transparent"
       elevation="0"
-      inverted-scroll
       ref="appBar"
   >
     <v-btn
         aria-label="Menu"
         v-if="$vuetify.breakpoint.smAndDown"
-        color="darkgreen"
+        color="accent1"
         elevation="0"
-        dark
+        variant="flat"
+        class="text-white"
         @click="drawerState = !drawerState"
     >
       <v-icon>mdi-menu</v-icon>
     </v-btn>
-    <v-row no-gutters>
+    <v-row class="ma-0 pa-0" align="center">
       <Language v-if="$vuetify.breakpoint.mdAndUp"/>
       <v-spacer></v-spacer>
       <switcher v-if="$vuetify.breakpoint.mdAndUp"></switcher>
@@ -30,8 +30,8 @@
       <v-col cols="auto" align-self="center">
           <v-btn
               @click="goToCheckout()"
-              dark
               rounded
+              variant="tonal"
           >
             <v-badge
                 :color="cartProductsQuantity > 0 ? 'accent1' : 'transparent'"
@@ -39,7 +39,7 @@
                 overlap
             >
             <v-icon
-                large
+                size="large"
                 :color="isIntersecting ? 'black' : 'white'"
             >
               mdi-cart
@@ -64,7 +64,7 @@ import Social from "@/components/appbar/Social"
 import Switcher from "@/components/appbar/Switcher"
 import Language from '@/components/appbar/Language'
 import {mapState} from "vuex"
-import Ecommerce from '@ecwid/sdk'
+import Ecommerce from '@/utils/ecwid'
 
 const ecommerce = new Ecommerce({
   storeId: 74850001,

@@ -1,49 +1,59 @@
 <template>
   <div>
     <v-app class="application">
-      <custom-drawer/>
-      <custom-app-bar/>
-      <consent></consent>
-      <router-view/>
-      <custom-footer/>
+      <CustomDrawer />
+      <CustomAppBar />
+      <Consent />
+      <router-view />
+      <CustomFooter />
     </v-app>
   </div>
 </template>
 
-<script>
+<script setup>
+import { onMounted } from 'vue'
 import Consent from '@/components/core/Consent'
-import {AppBar as CustomAppBar, Drawer as CustomDrawer, Footer as CustomFooter} from '@/components/core'
+import { AppBar as CustomAppBar, Drawer as CustomDrawer, Footer as CustomFooter } from '@/components/core'
 
-export default {
-  name: "App",
-  metaInfo: {
-    title: `handgemachter Schnaps aus Monheim am Rhein`,
-    titleTemplate: `%s | Monshiners' Obstbrand`,
-    htmlAttrs: {
-      lang: 'de',
-      amp: true
-    },
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'keywords', content: 'HTML, CSS, JAVASCRIPT'},
-      { name: 'description', content: 'Handgemachte Obstbrände aus Monheim am Rhein in limitierter Auflage.Vom Baum bis zur Flasche, alles aus einer Hand.&#9996; Jetzt schnell einkaufen. Solange der Vorrat reicht.'},
-      { name: 'author', content: 'Monshiners\' Obstbrand'},
-      { name: 'author', content: 'Monshiners\' Obstbrand'},
-      {
-        property: 'og:title',
-        content: 'Monshiners\' Obstbrand',
-        template: chunk => `${chunk} - Monshiners'`,
-        vmid: 'og:title'
+onMounted(() => {
+  document.documentElement.setAttribute('lang', 'de')
+  document.title = "handgemachter Schnaps aus Monheim am Rhein | Monshiners' Obstbrand"
+
+  const ensureMeta = (selector, attr, value) => {
+    let element = document.querySelector(selector)
+    if (!element) {
+      element = document.createElement('meta')
+      if (attr === 'charset') {
+        element.setAttribute('charset', value)
+      } else {
+        const [attrName, attrValue] = selector.replace('meta[', '').replace(']', '').split('=')
+        element.setAttribute(attrName, attrValue.replace(/"/g, ''))
       }
-    ]
-  },
-  components: {
-    Consent,
-    CustomAppBar,
-    CustomDrawer,
-    CustomFooter
-  },
-}
+      document.head.appendChild(element)
+    }
+
+    if (attr === 'charset') {
+      element.setAttribute('charset', value)
+    } else {
+      element.setAttribute(attr, value)
+    }
+  }
+
+  ensureMeta('meta[charset]', 'charset', 'utf-8')
+  ensureMeta('meta[name="keywords"]', 'content', 'HTML, CSS, JAVASCRIPT')
+  ensureMeta(
+    'meta[name="description"]',
+    'content',
+    "Handgemachte Obstbrände aus Monheim am Rhein in limitierter Auflage.Vom Baum bis zur Flasche, alles aus einer Hand.&#9996; Jetzt schnell einkaufen. Solange der Vorrat reicht.'"
+  )
+  ensureMeta('meta[name="author"]', 'content', "Monshiners' Obstbrand")
+  ensureMeta('meta[property="og:title"]', 'content', "Monshiners' Obstbrand")
+  ensureMeta(
+    'meta[property="og:description"]',
+    'content',
+    'Original Monheimer Schnaps. Hergestellt aus dem Obst der Streuobstwiesen, des Monheimer Rheinbogens.'
+  )
+})
 </script>
 
 <style lang="scss">
@@ -63,5 +73,29 @@ body {
 
 ::-webkit-scrollbar-track {
   background: transparent;
+}
+
+.text-white {
+  color: #ffffff !important;
+}
+
+.text-black {
+  color: #000000 !important;
+}
+
+.text-accent {
+  color: #ec4946 !important;
+}
+
+.text-accent1 {
+  color: #b0d57d !important;
+}
+
+.text-accent2 {
+  color: #f6cf3e !important;
+}
+
+.text-accent3 {
+  color: #824663 !important;
 }
 </style>

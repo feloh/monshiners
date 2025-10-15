@@ -54,7 +54,7 @@ export default {
     if (this.$store.state[STORE_INGREDIENTS_NAMESPACE].id) return
     this.getIngredients(i18n.locale)
 
-    this.$eventHub.$on('locale-changed',() => {this.getIngredients(i18n.locale)})
+    this.$eventHub.on('locale-changed',() => {this.getIngredients(i18n.locale)})
   },
 
 }
