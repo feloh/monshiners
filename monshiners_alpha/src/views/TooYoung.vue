@@ -6,7 +6,7 @@
         color="transparent"
         elevation="0"
     >
-      <v-row no-gutters>
+      <v-row class="ma-0">
         <Language/>
         <v-spacer></v-spacer>
         <social
@@ -32,14 +32,15 @@
            <v-card-actions>
              <v-row justify="space-around">
                <v-btn
-                   x-large
-                   color="black"
-                   class="text-justify text-center"
+                   size="x-large"
+                   color="accent1"
+                   variant="flat"
+                   class="text-justify text-center text-white"
                >
                  <a
                      :href="link"
                      target="_self"
-                     class="text-decoration-none text--black"
+                     class="text-decoration-none text-white"
                  >
                    {{ $t("redirect.link") }}
                  </a>
@@ -56,7 +57,7 @@
 <script>
 import Language from '@/components/appbar/Language'
 import Social from "@/components/appbar/Social"
-import i18n from '@//plugins/i18n'
+import i18n from '@/plugins/i18n'
 import {mapState} from "vuex"
 
 export default {

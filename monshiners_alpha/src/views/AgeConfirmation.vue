@@ -12,16 +12,16 @@
     </v-row>
     <v-row justify="space-around" class="mt-10">
       <v-btn
-          text
-          x-large
+          variant="text"
+          size="x-large"
           class="no-uppercase text-justify"
           @click="onward"
       >
         {{ $t('ageConfirmation.o18') }}
       </v-btn>
       <v-btn
-          text
-          x-large
+          variant="text"
+          size="x-large"
           class="no-uppercase text-justify"
           @click="redirect"
       >
@@ -36,11 +36,12 @@
 <script>
 import Cookies from 'js-cookie'
 import {mapState} from "vuex"
+import blackLogo from '@/assets/geometry/monshiners_schriftzug_schwarz.png'
 
 export default {
   name: "Start",
   data: () => ({
-        black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png')}),
+        black: blackLogo}),
   computed: {
     ...mapState(['socials']),
   },

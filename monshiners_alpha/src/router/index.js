@@ -1,30 +1,25 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import goTo from 'vuetify/es5/services/goto'
+import { createRouter, createWebHistory } from 'vue-router'
 import Cookies from 'js-cookie'
 import Home from '../views/Home.vue'
 import Store from '../views/Store.vue'
 import Catch from '../views/Catch.vue'
 import AgeConfirmation from '../views/AgeConfirmation.vue'
-import Meta from 'vue-meta'
 
-
-Vue.use(VueRouter)
-Vue.use(Meta)
-
-const router = new VueRouter(
-    {
-        mode: 'history',
+const router = createRouter({
+    history: createWebHistory(),
     scrollBehavior: (to, from, savedPosition) => {
-        let scrollTo = 0
-
         if (to.hash) {
-            scrollTo = to.hash
-        } else if (savedPosition) {
-            scrollTo = savedPosition.y
+            return {
+                el: to.hash,
+                behavior: 'smooth'
+            }
         }
 
-        return goTo(scrollTo)
+        if (savedPosition) {
+            return savedPosition
+        }
+
+        return { left: 0, top: 0 }
     },
     routes: [
         {
@@ -75,7 +70,7 @@ const router = new VueRouter(
             component: () => import('../views/TooYoung.vue')
         },
         {
-            path: '/*',
+            path: '/:pathMatch(.*)*',
             name: '404_error',
             component: Catch
         }
@@ -85,16 +80,14 @@ const router = new VueRouter(
 router.beforeEach((to, from, next) => {
     if (to.name !== 'AgeConfirmation' && Cookies.get('age') === undefined) {
         next({name: 'AgeConfirmation'})
-    } else {
-        if (to.matched.some(route => route.meta.requiresAge)){
-            if (Cookies.get('age') > 0) {
-                next()
-            } else {
-                next({name: 'TooYoung'})
-            }
-        } else {
+    } else if (to.matched.some(route => route.meta.requiresAge)) {
+        if (Cookies.get('age') > 0) {
             next()
+        } else {
+            next({name: 'TooYoung'})
         }
+    } else {
+        next()
     }
 })
 

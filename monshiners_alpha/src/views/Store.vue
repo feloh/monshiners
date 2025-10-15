@@ -36,22 +36,22 @@
           <intro/>
         </intersection>
         <!--Third Section-->
-        <v-parallax
-            :height="$vuetify.breakpoint.mdAndUp ? 200 : 200"
-            :lazy-src="`${currentTheme.hintergrund.url}?h=500&fm=jpg&fl=progressive&q=50`"
+        <ParallaxSection
+            v-if="currentTheme && currentTheme.hintergrund"
+            :height="$vuetify.breakpoint.smAndDown ? 200 : 200"
             :src="`${currentTheme.hintergrund.url}?h=1200&fm=jpg&fl=progressive&q=100`"
         >
           <v-container fluid>
             <v-row justify="center">
               <v-col
-                  class="text-h4 white--text  font-weight-medium text-center"
+                  class="text-h4 text-white  font-weight-medium text-center"
                   md="6"
               >
                 {{ $t("home.quote") }}
               </v-col>
             </v-row>
           </v-container>
-        </v-parallax>
+        </ParallaxSection>
 <!--        &lt;!&ndash;Fourth Section&ndash;&gt;
         <intersection :on-intersect="onIntersect" :threshold="threshold">
           <about :titel="ABOUT_TITLE" :inhalt="ABOUT_INHALT"/>
@@ -78,14 +78,17 @@
 
 <script>
 import  {Intro} from '@/components/store'
-import {Intersection} from '@/components/base'
+import {Intersection, ParallaxSection} from '@/components/base'
 // import About from "@/components/About"
 import {KinesisElement, KinesisContainer} from 'vue-kinesis'
 import {mapActions, mapState, mapMutations} from 'vuex'
 import {GET_REFERENCE} from "@/store/action-types"
 import Reference from "@/store/modules/reference"
 
-import i18n from '@//plugins/i18n'
+import i18n from '@/plugins/i18n'
+import whiteLogo from '@/assets/geometry/monshiners_schriftzug_weiss.png'
+import blackLogo from '@/assets/geometry/monshiners_schriftzug_schwarz.png'
+import lazyLogo from '@/assets/img/monshiners_obstbrand_logo.jpg'
 
 const STORE_THEME_NAMESPACE = 'theme'
 const STORE_REFERENCE_NAMESPACE = 'reference'
@@ -99,13 +102,14 @@ export default {
     KinesisContainer,
     KinesisElement,
     Intersection,
+    ParallaxSection,
     // FullScreenImage
   },
   data: () => ({
     // gif_logo: require('@/assets/geometry/monshiners_logo_animated.png'),
-    white: require('@/assets/geometry/monshiners_schriftzug_weiss.png'),
-    black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png'),
-    lazy: require('@/assets/img/monshiners_obstbrand_logo.jpg'),
+    white: whiteLogo,
+    black: blackLogo,
+    lazy: lazyLogo,
     t: null,
     loading: false,
     INTRO_INHALT: '',
@@ -158,7 +162,7 @@ export default {
     this.ABOUT_TITLE = this.bestandteile[1].titel
     this.ABOUT_INHALT = this.bestandteile[1].inhalt[0].content[0].value
 
-    this.$eventHub.$on('locale-changed', async () => {
+    this.$eventHub.on('locale-changed', async () => {
       await this.getReference({locale: i18n.locale, id: id})
       this.INTRO_INHALT = this.bestandteile[0].inhalt[0].content[0].value
       this.ABOUT_TITLE = this.bestandteile[1].titel

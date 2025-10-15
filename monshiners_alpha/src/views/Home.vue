@@ -36,36 +36,33 @@
           <intro :inhalt="INTRO_INHALT"/>
         </intersection>
         <!--Third Section-->
-        <v-parallax
-            :height="$vuetify.breakpoint.mdAndUp ? 800 : 500"
-            :lazy-src="`${currentTheme.hintergrund.url}?h=500&fm=jpg&fl=progressive&q=50`"
+        <ParallaxSection
+            v-if="currentTheme && currentTheme.hintergrund"
+            :height="$vuetify.breakpoint.smAndDown ? 500 : 800"
             :src="`${currentTheme.hintergrund.url}?h=1200&fm=jpg&fl=progressive&q=100`"
         >
           <v-container fluid>
             <v-row justify="center">
               <v-col
-                  class="text-h4 white--text  font-weight-medium text-center"
+                  class="text-h4 text-white  font-weight-medium text-center"
                   md="6"
               >
                 {{ $t("home.quote") }}
               </v-col>
             </v-row>
           </v-container>
-        </v-parallax>
+        </ParallaxSection>
         <!--Fourth Section-->
         <intersection :on-intersect="onIntersect" :threshold="threshold">
           <about :titel="ABOUT_TITLE" :inhalt="ABOUT_INHALT"/>
         </intersection>
         <!--Fifth Section-->
-        <v-img
-            :height="$vuetify.breakpoint.mdAndUp ? 800 : 500"
-            :lazy-src="`${currentTheme.videoParallaxStandbild.url}?w=400&h=500&fit=thumb&fm=jpg&fl=progressive&q=90`"
+        <ParallaxSection
+            v-if="currentTheme && currentTheme.videoParallaxStandbild"
+            :height="$vuetify.breakpoint.smAndDown ? 500 : 800"
+            :gradient="'linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.40))'"
             :src="`${currentTheme.videoParallaxStandbild.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
-            class="d-flex justify-center align-center"
-            gradient="to bottom, rgba(0,0,0,0), rgba(0,0,0,0.40)"
-            style="padding-bottom: 50px"
-        >
-        </v-img>
+        />
         <intersection :on-intersect="onIntersect" :threshold="threshold">
           <gallery :src="currentTheme.detail"/>
         </intersection>
@@ -78,14 +75,17 @@
 
 <script>
 import {Gallery, FullScreenImage, Intro} from '@/components/home'
-import {Intersection} from '@/components/base'
+import {Intersection, ParallaxSection} from '@/components/base'
 import About from "@/components/About"
 import {KinesisElement, KinesisContainer} from 'vue-kinesis'
 import {mapActions, mapState, mapMutations} from 'vuex'
 import {GET_REFERENCE} from "@/store/action-types"
 import Reference from "@/store/modules/reference"
 
-import i18n from '@//plugins/i18n'
+import i18n from '@/plugins/i18n'
+import whiteLogo from '@/assets/geometry/monshiners_schriftzug_weiss.png'
+import blackLogo from '@/assets/geometry/monshiners_schriftzug_schwarz.png'
+import lazyLogo from '@/assets/img/monshiners_obstbrand_logo.jpg'
 
 const STORE_THEME_NAMESPACE = 'theme'
 const STORE_REFERENCE_NAMESPACE = 'reference'
@@ -99,13 +99,14 @@ export default {
     KinesisContainer,
     KinesisElement,
     Intersection,
+    ParallaxSection,
     FullScreenImage
   },
   data: () => ({
     // gif_logo: require('@/assets/geometry/monshiners_logo_animated.png'),
-    white: require('@/assets/geometry/monshiners_schriftzug_weiss.png'),
-    black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png'),
-    lazy: require('@/assets/img/monshiners_obstbrand_logo.jpg'),
+    white: whiteLogo,
+    black: blackLogo,
+    lazy: lazyLogo,
     t: null,
     loading: false,
     INTRO_INHALT: '',
@@ -158,7 +159,7 @@ export default {
     this.ABOUT_TITLE = this.bestandteile[1].titel
     this.ABOUT_INHALT = this.bestandteile[1].inhalt[0].content[0].value
 
-    this.$eventHub.$on('locale-changed', async () => {
+    this.$eventHub.on('locale-changed', async () => {
       await this.getReference({locale: i18n.locale, id: id})
       this.INTRO_INHALT = this.bestandteile[0].inhalt[0].content[0].value
       this.ABOUT_TITLE = this.bestandteile[1].titel

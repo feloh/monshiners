@@ -15,11 +15,11 @@
         <template v-slot:text>
           <v-row justify="center">
             <v-btn
-                color="darkgreen"
+                color="accent1"
                 elevation="3"
-                dark
-                tile
-                class="my-4 font-weight-medium"
+                variant="flat"
+                rounded="0"
+                class="my-4 font-weight-medium text-white"
                 href="https://monshiners.de/#/"
             >
               {{ $t("catch.btn") }}

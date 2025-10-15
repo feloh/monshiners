@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-        <v-row no-gutters align="stretch" justify-md="space-around">
+        <v-row class="ma-0" align="stretch" justify-md="space-around">
           <season
               v-for="i in 4"
               :key="i"
@@ -59,7 +59,7 @@ export default {
     this.$store.registerModule(STORE_SEASON_NAMESPACE, SeasonModule)
     if (this.$store.state[STORE_SEASON_NAMESPACE].id) return
     this.getSeason(utils.getSeason())
-    this.$eventHub.$on('locale-changed',() => { this.getSeason(utils.getSeason(), i18n.locale)})
+    this.$eventHub.on('locale-changed',() => { this.getSeason(utils.getSeason(), i18n.locale)})
   },
   mounted() {
     this.currentSeason = utils.getSeason()

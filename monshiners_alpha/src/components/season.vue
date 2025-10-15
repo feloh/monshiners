@@ -14,20 +14,20 @@
             >
               <v-row justify="center">
                 <v-card-title
-                    class="text-md-h3 white--text font-weight-medium"
+                    class="text-md-h3 text-white font-weight-medium"
                 >
                   {{ jahreszeit }}
                 </v-card-title>
               </v-row>
               <v-row justify="center">
                 <v-card-subtitle
-                    class="text-md-h6 text-uppercase white--text"
+                    class="text-md-h6 text-uppercase text-white"
                 >
                   {{ saisonphasen.bezeichnung}}
                 </v-card-subtitle>
               </v-row>
               <v-card-text
-                  class="text-md-justify white--text text-md-subtitle-1"
+                  class="text-md-justify text-white text-md-subtitle-1"
               >
                 <p
                     v-for="(c, indexC) in saisonphasen.beschreibung.content"

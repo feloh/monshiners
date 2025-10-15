@@ -22,7 +22,7 @@
           <v-icon
               color="accent2"
           >mdi-instagram</v-icon>
-          <a class="text-decoration-none text--accent-2" href="https://www.instagram.com/monshiners_obstbrand/" target="_blank">
+          <a class="text-decoration-none text-accent2" href="https://www.instagram.com/monshiners_obstbrand/" target="_blank">
           @monshiners_obstbrand
         </a>
         </span><br>
@@ -30,7 +30,7 @@
            <v-icon
                color="accent1"
            >mdi-facebook</v-icon>
-          <a class="text-decoration-none text--accent"  href="" target="_blank">
+          <a class="text-decoration-none text-accent"  href="" target="_blank">
           Monshiners'
         </a>
         </span><br>

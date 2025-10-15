@@ -1,14 +1,12 @@
 <template>
   <v-bottom-sheet
       v-model="sheet"
-      no-click-animation
       persistent
       hide-overlay
       width="100%"
-      open-delay="10000"
   >
     <v-sheet class="elevation-3 pa-2">
-      <v-row align="center" no-gutters>
+      <v-row align="center" class="ma-0">
         <v-col cols="12">
           <p class="text-body-2">
             {{$t("consent.text")}}
@@ -18,10 +16,10 @@
           <v-row justify="center">
           <v-btn
               class="mx-auto"
-              color="darkgreen"
+              color="accent1"
               elevation="0"
-              dark
-              tile
+              variant="flat"
+              class="text-white"
               @click="acknowledgeCookies"
           >Ich akzeptiere</v-btn>
           </v-row>
