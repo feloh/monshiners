@@ -98,6 +98,8 @@
 </template>
 
 <script>
+import {createSumUpCheckout} from '@/utils/sumupCheckout'
+
 const SUMUP_SDK = 'https://gateway.sumup.com/gateway/ecom/card/v2/sdk.js'
 const PAYPAL_SDK_BASE = 'https://www.paypal.com/sdk/js'
 
@@ -217,7 +219,11 @@ export default {
       try {
         await loadScript(SUMUP_SDK, 'sumup-sdk')
 
-        const checkoutId = await this.createSumUpCheckout()
+        const checkoutId = await createSumUpCheckout({
+          amount: this.totalCents / 100,
+          currency: 'EUR',
+          items: this.cartItems,
+        })
         if (!window.SumUpCard || !checkoutId) {
           throw new Error('SumUp Checkout konnte nicht vorbereitet werden.')
         }
@@ -239,35 +245,6 @@ export default {
       } finally {
         this.loading = false
       }
-    },
-    async createSumUpCheckout() {
-      const endpoint = process.env.VUE_APP_SUMUP_CHECKOUT_ENDPOINT
-      const checkoutIdFromEnv = process.env.VUE_APP_SUMUP_CHECKOUT_ID
-
-      if (checkoutIdFromEnv) {
-        return checkoutIdFromEnv
-      }
-
-      if (!endpoint) {
-        throw new Error('Bitte VUE_APP_SUMUP_CHECKOUT_ENDPOINT oder VUE_APP_SUMUP_CHECKOUT_ID setzen.')
-      }
-
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          amount: this.totalCents / 100,
-          currency: 'EUR',
-          items: this.cartItems,
-        }),
-      })
-
-      if (!response.ok) {
-        throw new Error('SumUp Checkout konnte nicht erstellt werden.')
-      }
-
-      const payload = await response.json()
-      return payload.checkoutId
     },
     async renderPayPalButtons() {
       if (this.paypalRendered) return
