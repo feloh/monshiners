@@ -23,10 +23,11 @@
                                 />-->
                 <v-img
                     :src="black"
-                    :width="$vuetify.breakpoint.mdAndUp ? 360 :210"
+                    :width="$vuetify.breakpoint.mdAndUp ? 360 : 210"
                     class="mx-auto"
                     style="filter:invert(1)"
-                />
+                >
+                </v-img>
               </kinesis-element>
             </v-img>
           </kinesis-element>
@@ -34,6 +35,7 @@
         <!--Second Section-->
         <intersection :on-intersect="onIntersect" :threshold="threshold">
           <intro :inhalt="INTRO_INHALT"/>
+          <intro-shop/>
         </intersection>
         <!--Third Section-->
         <v-parallax
@@ -78,7 +80,7 @@
 
 <script>
 import {Gallery, FullScreenImage, Intro} from '@/components/home'
-import {Intersection} from '@/components/base'
+import IntroShop from '@/components/store/Intro-Shop.vue'
 import About from "@/components/About"
 import {KinesisElement, KinesisContainer} from 'vue-kinesis'
 import {mapActions, mapState, mapMutations} from 'vuex'
@@ -86,6 +88,7 @@ import {GET_REFERENCE} from "@/store/action-types"
 import Reference from "@/store/modules/reference"
 
 import i18n from '@//plugins/i18n'
+import {Intersection} from "@/components/base";
 
 const STORE_THEME_NAMESPACE = 'theme'
 const STORE_REFERENCE_NAMESPACE = 'reference'
@@ -98,6 +101,7 @@ export default {
     Gallery,
     KinesisContainer,
     KinesisElement,
+    IntroShop,
     Intersection,
     FullScreenImage
   },
@@ -180,5 +184,4 @@ body
 
 .v-btn--floating
   position: relative
-
 </style>

@@ -1,6 +1,6 @@
 <template>
   <kinesis-container event="scroll">
-  <v-container fluid class="pa-5">
+  <v-container fluid class="pa-15">
     <v-row justify-md="space-around">
       <v-col
           md="6"
@@ -10,7 +10,7 @@
       >
         <kinesis-element :strength=30 type="translate" axis="x" :max-x="10"	 >
         <v-img
-            :src="logo"
+            :src="skizze"
             :height="$vuetify.breakpoint.mdAndUp ? 500 : 200"
             contain
             class="mx-auto"
@@ -64,6 +64,7 @@ export default {
   data: () => ({
     black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png'),
     logo: require('@/assets/img/monshiners_logo.jpg'),
+    skizze: require('@/assets/img/Skizze_Prozess.jpg')
   }),
   props: {
     inhalt: {

@@ -35,7 +35,7 @@ name: "Bottle",
     }
   },
   data:() => ({
-    bottle: require('@/assets/img/Monshiners_Obstbrand_Quitte_35cl_klein.png')
+    bottle: require('@/assets/img/monshiners_logo.jpg')
 })
 }
 </script>

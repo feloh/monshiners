@@ -4,16 +4,6 @@
       padless
   >
     <v-container fluid class="pt-md-10">
-      <v-row
-          justify="center"
-          no-gutters
-      >
-        <span
-            class="text-md-h5 font-weight-bold"
-        >
-          {{ $t("home.social") }}
-        </span>
-      </v-row>
     </v-container>
     <v-container fluid>
     <v-row

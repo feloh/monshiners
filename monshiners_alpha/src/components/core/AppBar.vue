@@ -68,7 +68,7 @@ import Ecommerce from '@ecwid/sdk'
 
 const ecommerce = new Ecommerce({
   storeId: 74850001,
-  storeLocationPath: "/store/",
+  storeLocationPath: "/",
 })
 
 export default {
@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     goToCheckout() {
-      ecommerce.cart.goToCheckout()
+      ecommerce.cart.goToCheckout('/')
     },
     getCart() {
       ecommerce.cart.get().then((result) => {

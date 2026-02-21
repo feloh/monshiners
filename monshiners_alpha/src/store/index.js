@@ -26,8 +26,8 @@ export default new Vuex.Store({
     ],
     links: [
     /*  'aboutUs',
-      'products',*/
-      'store'
+      'products',
+      'store'*/
     ],
     themes: [],
     intersection: false,

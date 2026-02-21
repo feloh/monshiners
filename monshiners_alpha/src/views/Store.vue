@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import  {Intro} from '@/components/store'
+import  {IntroShop} from '@/components/store'
 import {Intersection} from '@/components/base'
 // import About from "@/components/About"
 import {KinesisElement, KinesisContainer} from 'vue-kinesis'
@@ -93,7 +93,7 @@ const STORE_REFERENCE_NAMESPACE = 'reference'
 export default {
   name: 'Store',
   components: {
-    Intro,
+    Intro: IntroShop,
     // About,
     // Gallery,
     KinesisContainer,

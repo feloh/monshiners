@@ -47,6 +47,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 html, body {
   margin: 0;
   padding: 0;
@@ -55,6 +56,7 @@ html, body {
 body {
   width: 100vw;
   overflow: auto;
+  font-family: 'Richey', serif;
 }
 
 ::-webkit-scrollbar {

@@ -14,7 +14,7 @@ Vue.use(Meta)
 
 const router = new VueRouter(
     {
-        mode: 'history',
+       mode: 'history',
     scrollBehavior: (to, from, savedPosition) => {
         let scrollTo = 0
 
@@ -52,7 +52,7 @@ const router = new VueRouter(
             }
         },
         {
-            path: '/store',
+            path: '/store(/)?*',
             name: 'Store',
             component: Store,
             meta: {

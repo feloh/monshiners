@@ -1,48 +1,12 @@
 <template>
-  <base-card>
-    <template
-        v-slot:text
-    >
-    <div class="d-flex mx-auto text-center" style="max-width: 750px">
+  <v-card>
+    <v-card-text class="d-flex mx-auto text-center mt-6" style="max-width: 750px">
       {{inhalt}}
-    </div>
-    <div class="d-flex justify-center">
-      <p class="my-7">Jahrgang 2022</p>
-    </div>
-  </template>
- <template v-slot:element>
-           <ecwid class="mx-3"/>
-   <!--   <v-row
-       justify-md="center"
-       class="bottle-container"
-       :style="$vuetify.breakpoint.smAndDown ? 'height:200px' : 'height:450px'"
-   >
-     <bottle v-for="(img,i) in productImg"
-             :key="img.id"
-             :src="img.produktbild.url"
-             :class="wedge(i)"/>
-   </v-row>
- </template>
- <template v-slot:actions>
-   <v-row justify="center">
-     <v-btn
-         color="darkgreen"
-         href="https://monshiners-schwarzmarkt.company.site/"
-         elevation="0"
-         dark
-     >
-       {{ $t("home.btn") }}
-     </v-btn>
-   </v-row>-->
- </template>
-  </base-card>
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
-
-import {Card as BaseCard} from '@/components/base'
-//import {Bottle} from '@/components/home'
-import Ecwid from '@/components/Ecwid'
 
 import {mapActions, mapState} from 'vuex'
 import {GETALL_PRODUCT} from "@/store/action-types"
@@ -57,8 +21,6 @@ const STORE_PRODUCT_NAMESPACE = 'product'
 export default {
   name: "intro",
   components: {
-    Ecwid,
-    BaseCard,
     //Bottle
   },
   props: ['inhalt'],
