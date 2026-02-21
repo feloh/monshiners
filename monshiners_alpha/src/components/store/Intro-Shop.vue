@@ -1,5 +1,5 @@
 <template>
-  <base-card>
+ <base-card>
 <!--    <template
         v-slot:text
     >
@@ -11,7 +11,12 @@
     </div>
   </template>-->
  <template v-slot:element>
-           <ecwid class="mx-3"/>
+    <odoo-shop
+      class="mx-3"
+      :src="odooShopUrl"
+      :api-url="odooApiUrl"
+      :api-token="odooApiToken"
+    />
    <!--   <v-row
        justify-md="center"
        class="bottle-container"
@@ -42,7 +47,7 @@
 
 import {Card as BaseCard} from '@/components/base'
 //import {Bottle} from '@/components/home'
-import Ecwid from '@/components/Ecwid'
+import OdooShop from '@/components/store/OdooShop'
 
 import {mapActions, mapState} from 'vuex'
 import {GETALL_PRODUCT} from "@/store/action-types"
@@ -57,7 +62,7 @@ const STORE_PRODUCT_NAMESPACE = 'product'
 export default {
   name: "intro",
   components: {
-    Ecwid,
+    OdooShop,
     BaseCard,
     //Bottle
   },
@@ -74,6 +79,15 @@ export default {
   },
   computed: {
     ...mapState(STORE_PRODUCT_NAMESPACE, ['productImg']),
+    odooShopUrl() {
+      return process.env.VUE_APP_ODOO_SHOP_URL || 'https://www.monshiners.at/shop'
+    },
+    odooApiUrl() {
+      return process.env.VUE_APP_ODOO_API_URL || ''
+    },
+    odooApiToken() {
+      return process.env.VUE_APP_ODOO_API_TOKEN || ''
+    }
   },
  async created() {
     this.$store.registerModule(STORE_PRODUCT_NAMESPACE, Product)
