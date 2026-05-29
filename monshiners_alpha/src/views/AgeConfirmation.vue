@@ -40,7 +40,7 @@ import {mapState} from "vuex"
 export default {
   name: "Start",
   data: () => ({
-        black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png')}),
+        black: require('@/assets/geometry/Monshiners_Schriftmarke_Black.png')}),
   computed: {
     ...mapState(['socials']),
   },
@@ -62,8 +62,8 @@ export default {
 
 <style>
 @font-face {
-  font-family: Belta;
-  src: url("../assets/fonts/belta-light.otf") format('otf');
+  font-family: Richey;
+  src: url("../assets/fonts/Richey.otf") format('otf');
   font-weight: 300;
 }
 
@@ -75,14 +75,14 @@ export default {
   line-height: 1em;
   font-weight: 400;
   font-size: 90px;
-  font-family: Belta;
+  font-family: Richey;
   text-align:center;
   padding-top:140px;
 }
 
 @media only screen and (min-width: 800px) {
   .head {
-    font:400 180px/1em Belta;
+    font:400 180px/1em Richey;
     text-align:center;
     padding-top:140px;
   }

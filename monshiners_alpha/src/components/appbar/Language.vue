@@ -6,16 +6,18 @@
     >
       <template v-slot:activator>
         <v-btn
-            color="darkgreen"
+            color="transparent"
             elevation="0"
             dark
             v-model="fab"
+            class="text-body-1"
         >
           <v-icon v-if="fab">
             mdi-close
           </v-icon>
           <span
               v-else
+              :style="isIntersecting ? 'color:black' : 'color:white'"
           >
             {{$t('lng.language')}}
           </span>
@@ -25,7 +27,7 @@
           :color="isIntersecting ? 'darkgreen' : 'white'"
           fab
           small
-          class="text-subtitle-1 font-weight-bold"
+          class="text-subtitle-1 font-weight-medium"
           @click="changeLocale('pl')"
       >
         {{$t('lng.plt')}}

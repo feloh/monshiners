@@ -69,6 +69,9 @@ export default {
         case 'lg':
           rG = this.array(this.src.length, 4)
           break
+        case 'xl':
+          rG = this.array(this.src.length, 4)
+          break
       }
       return rG
     }

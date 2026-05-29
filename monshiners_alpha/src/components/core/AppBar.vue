@@ -21,32 +21,21 @@
       <Language v-if="$vuetify.breakpoint.mdAndUp"/>
       <v-spacer></v-spacer>
       <switcher v-if="$vuetify.breakpoint.mdAndUp"></switcher>
-      <v-spacer></v-spacer>
-      <v-col cols="auto" align-self="center">
-        <div className = "ec-cart-widget"/>
-        <div>
-        </div>
-      </v-col>
-      <v-col cols="auto" align-self="center">
+<!--      <v-col cols="auto" align-self="center">
           <v-btn
-              @click="goToCheckout()"
+              href="https://monshiners.odoo.com/shop"
+              target="_blank"
+              rel="noopener"
               dark
               rounded
           >
-            <v-badge
-                :color="cartProductsQuantity > 0 ? 'accent1' : 'transparent'"
-                :content="cartProductsQuantity"
-                overlap
-            >
             <v-icon
-                large
                 :color="isIntersecting ? 'black' : 'white'"
             >
               mdi-cart
             </v-icon>
-            </v-badge>
           </v-btn>
-        </v-col>
+        </v-col>-->
       <social
           v-for="s in socials"
           :key="socials.indexOf(s)"
@@ -64,12 +53,6 @@ import Social from "@/components/appbar/Social"
 import Switcher from "@/components/appbar/Switcher"
 import Language from '@/components/appbar/Language'
 import {mapState} from "vuex"
-import Ecommerce from '@ecwid/sdk'
-
-const ecommerce = new Ecommerce({
-  storeId: 74850001,
-  storeLocationPath: "/",
-})
 
 export default {
   name: "Appbar",
@@ -91,25 +74,6 @@ export default {
     cartProductsQuantity: {
       get () { return this.$store.state.cartProductsQuantity },
       set (v) { return this.$store.commit('setCartProductsQuantity', v ) }
-    }
-  },
-  mounted() {
-    this.getCart()
-  },
-  beforeUpdate() {
-    this.getCart()
-  },
-  methods: {
-    goToCheckout() {
-      ecommerce.cart.goToCheckout('/')
-    },
-    getCart() {
-      ecommerce.cart.get().then((result) => {
-        if (result === undefined) {
-          return
-        }
-        this.cartProductsQuantity = result.productsQuantity
-      })
     }
   }
 }

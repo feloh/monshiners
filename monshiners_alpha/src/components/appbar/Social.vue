@@ -9,7 +9,6 @@
       rounded
   >
       <v-icon
-          large
           :color="color"
       >
         {{icon}}

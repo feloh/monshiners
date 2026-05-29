@@ -130,7 +130,7 @@ export default {
         }
 
         if (this.token) {
-          headers.Authorization = `Bearer ${this.token}`
+          headers.Authorization = `bearer ${this.token}`
         }
 
         const response = await fetch(this.endpoint, {headers})

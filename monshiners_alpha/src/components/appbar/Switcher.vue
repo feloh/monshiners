@@ -11,7 +11,7 @@
     </v-btn>
     <p
         v-if="currentTheme"
-        class="d-inline my-auto"
+        class="d-inline my-auto text-body-1"
         :class="isIntersecting ? 'black--text' : 'white--text'"
     >
       {{ currentTheme.name }}

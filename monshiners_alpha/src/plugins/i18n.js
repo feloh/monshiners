@@ -39,7 +39,7 @@ const messages = {
             about_subtitle: 'Hä wer?',
             about: 'Die schnellsten Treckerfahrer der Stadt. Geistreiche Trinker und  Obstbauern aus Leidenschaft. Wir zeigen euch, was die Monheimer Natur zu bieten hat und warum man sie auf jeden Fall schützen und pflegen sollte. Ehrlich und grade soll unser Werk sein, vom Baumschnitt bis zum Abfüllen versuchen wir alles selber zu machen. Wenn es nicht anders geht, dann lassen wir die Profis ran. Das ist erst der Anfang...',
             aboutUs: 'Über uns',
-            shop: 'Shop',
+            toShop: ' Zum Shop',
             products: 'Unser Zeug'
         },
     },
@@ -76,6 +76,7 @@ const messages = {
             privacy: 'Datenschutz',
             contact: 'Kontakt',
             about_subtitle: 'Wä is dat dann?',
+            toShop: ' Flöck Einkaufen',
             about: 'Die pflücksten Treckerfahrer dä Stadt. Gewetze Suffpatrone un  Obsbuure us Leidenschaft. Mir zeige üch, wat de Monhemer Natur usmät un woröm mer se op jeden Fall schötze un fläge soll. Ihrlich un grad soll uns Werk sin, vum Bäumschnigge bes zum Affölle verzöke mir selvs  ze maache. Wenn et nit anders geiht, dann lasse mir die Profis ran. Dat is eets dä Aanfang...'
         },
     }

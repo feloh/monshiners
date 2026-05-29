@@ -56,7 +56,6 @@ html, body {
 body {
   width: 100vw;
   overflow: auto;
-  font-family: 'Richey', serif;
 }
 
 ::-webkit-scrollbar {

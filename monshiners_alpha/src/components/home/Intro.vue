@@ -1,8 +1,20 @@
 <template>
   <v-card>
-    <v-card-text class="d-flex mx-auto text-center mt-6" style="max-width: 750px">
+    <v-card-text class="d-flex mx-auto text-center mt-6 text-md-subtitle-1" style="max-width: 900px">
       {{inhalt}}
     </v-card-text>
+    <v-card-actions class="justify-center">
+      <v-btn
+          color="darkgreen"
+          elevation="0"
+          dark
+          tile
+          exact-path
+          href="shop.monshiners.de"
+      >
+        {{ $t('home.toShop') }}
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 

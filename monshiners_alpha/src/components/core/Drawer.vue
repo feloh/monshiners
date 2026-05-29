@@ -7,10 +7,10 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="text-h6">
-          Monshiners' Obstbrand
+          Monshiners' Schabau
         </v-list-item-title>
         <v-list-item-subtitle>
-          Wo willst'e hin?
+          Rheinland Represent
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
