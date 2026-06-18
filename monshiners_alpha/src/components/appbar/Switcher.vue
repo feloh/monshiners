@@ -62,9 +62,9 @@ export default {
   created() {
     this.$store.registerModule(STORE_THEME_NAMESPACE, ThemeModule)
     if (this.$store.state[STORE_THEME_NAMESPACE].id) return
-    this.getTheme({locale: i18n.locale})
+    this.getTheme({locale: i18n.global.locale})
     this.$eventHub.$on('locale-changed', () => {
-      this.getTheme({locale: i18n.locale})
+      this.getTheme({locale: i18n.global.locale})
     })
   }
 }

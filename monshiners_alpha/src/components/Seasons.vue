@@ -59,7 +59,7 @@ export default {
     this.$store.registerModule(STORE_SEASON_NAMESPACE, SeasonModule)
     if (this.$store.state[STORE_SEASON_NAMESPACE].id) return
     this.getSeason(utils.getSeason())
-    this.$eventHub.$on('locale-changed',() => { this.getSeason(utils.getSeason(), i18n.locale)})
+    this.$eventHub.$on('locale-changed',() => { this.getSeason(utils.getSeason(), i18n.global.locale)})
   },
   mounted() {
     this.currentSeason = utils.getSeason()

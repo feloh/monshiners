@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import{KinesisElement, KinesisContainer} from 'vue-kinesis'
+import{KinesisElement, KinesisContainer} from '@/plugins/kinesis'
 
 export default {
   name: "season",

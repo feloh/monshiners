@@ -5,7 +5,7 @@
         <!--First Section-->
             <v-img
                 v-if="currentTheme"
-                :height="$vuetify.breakpoint.mdAndUp ? 750 : 400"
+                :height="$vuetify.display.mdAndUp ? 750 : 400"
                 :lazy-src="`${currentTheme.jumbotron.url}?h=200&fit=thumb&fm=jpg&fl=progressive&q=50`"
                 :src="`${currentTheme.jumbotron.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
                 class="d-flex align-center"
@@ -22,7 +22,7 @@
                                 />-->
                 <v-img
                     :src="black"
-                    :width="$vuetify.breakpoint.mdAndUp ? 360 : 210"
+                    :width="$vuetify.display.mdAndUp ? 360 : 210"
                     class="mx-auto"
                     style="filter:invert(1)"
                 >
@@ -36,7 +36,7 @@
         </intersection>
         <!--Third Section-->
         <v-parallax
-            :height="$vuetify.breakpoint.mdAndUp ? 800 : 500"
+            :height="$vuetify.display.mdAndUp ? 800 : 500"
             :lazy-src="`${currentTheme.hintergrund.url}?h=500&fm=jpg&fl=progressive&q=50`"
             :src="`${currentTheme.hintergrund.url}?h=1200&fm=jpg&fl=progressive&q=100`"
         >
@@ -57,7 +57,7 @@
         </intersection>
         <!--Fifth Section-->
         <v-img
-            :height="$vuetify.breakpoint.mdAndUp ? 800 : 500"
+            :height="$vuetify.display.mdAndUp ? 800 : 500"
             :lazy-src="`${currentTheme.videoParallaxStandbild.url}?w=400&h=500&fit=thumb&fm=jpg&fl=progressive&q=90`"
             :src="`${currentTheme.videoParallaxStandbild.url}?h=1000&&fm=jpg&fl=progressive&q=100`"
             class="d-flex justify-center align-center"
@@ -78,12 +78,12 @@
 <script>
 import {Gallery, FullScreenImage, Intro} from '@/components/home'
 import About from "@/components/About"
-import {KinesisElement, KinesisContainer} from 'vue-kinesis'
+import {KinesisElement, KinesisContainer} from '@/plugins/kinesis'
 import {mapActions, mapState, mapMutations} from 'vuex'
 import {GET_REFERENCE} from "@/store/action-types"
 import Reference from "@/store/modules/reference"
 
-import i18n from '@//plugins/i18n'
+import i18n from '@/plugins/i18n'
 import {Intersection} from "@/components/base";
 
 const STORE_THEME_NAMESPACE = 'theme'
@@ -154,7 +154,7 @@ export default {
     const id = '2UXMuzteex84qEplFFuCvV'
     this.$store.registerModule(STORE_REFERENCE_NAMESPACE, Reference)
     if (this.$store.state[STORE_REFERENCE_NAMESPACE].id) return
-    await this.getReference({locale: i18n.locale, id: id})
+    await this.getReference({locale: i18n.global.locale, id: id})
     this.INTRO_INHALT = this.bestandteile[0].inhalt[0].content[0].value
     this.ABOUT_TITLE = this.bestandteile[1].titel
     this.ABOUT_INHALT = this.bestandteile[1].inhalt[0].content[0].value
@@ -163,7 +163,7 @@ export default {
 
 
     this.$eventHub.$on('locale-changed', async () => {
-      await this.getReference({locale: i18n.locale, id: id})
+      await this.getReference({locale: i18n.global.locale, id: id})
       this.INTRO_INHALT = this.bestandteile[0].inhalt[0].content[0].value
       this.ABOUT_TITLE = this.bestandteile[1].titel
       this.ABOUT_INHALT = this.bestandteile[1].inhalt[0].content[0].value
@@ -176,7 +176,7 @@ export default {
 </script>
 
 <style lang="sass">
-@import '~vuetify/src/styles/styles.sass'
+
 body
   overflow-x: hidden
 
