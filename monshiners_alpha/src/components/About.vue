@@ -53,14 +53,9 @@
 </template>
 
 <script>
-import{KinesisElement, KinesisContainer} from 'vue-kinesis'
 
 export default {
   name: "Collage",
-  components: {
-    KinesisContainer,
-    KinesisElement
-  },
   data: () => ({
     black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png'),
     logo: require('@/assets/img/monshiners_logo.jpg'),

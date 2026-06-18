@@ -16,13 +16,10 @@
 </template>
 
 <script>
-import {KinesisElement, KinesisContainer} from 'vue-kinesis'
 
 export default {
 name: "Bottle",
   components:{
-    KinesisContainer,
-    KinesisElement,
   },
   props: {
     src: {

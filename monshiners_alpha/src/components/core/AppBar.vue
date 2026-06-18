@@ -64,12 +64,6 @@ import Social from "@/components/appbar/Social"
 import Switcher from "@/components/appbar/Switcher"
 import Language from '@/components/appbar/Language'
 import {mapState} from "vuex"
-import Ecommerce from '@ecwid/sdk'
-
-const ecommerce = new Ecommerce({
-  storeId: 74850001,
-  storeLocationPath: "/",
-})
 
 export default {
   name: "Appbar",
@@ -101,15 +95,11 @@ export default {
   },
   methods: {
     goToCheckout() {
-      ecommerce.cart.goToCheckout('/')
+      if (window.Ecwid?.Cart?.gotoCheckout) window.Ecwid.Cart.gotoCheckout()
     },
     getCart() {
-      ecommerce.cart.get().then((result) => {
-        if (result === undefined) {
-          return
-        }
-        this.cartProductsQuantity = result.productsQuantity
-      })
+      const cart = window.Ecwid?.ShoppingCart
+      if (cart?.getItems) this.cartProductsQuantity = cart.getItems().length
     }
   }
 }

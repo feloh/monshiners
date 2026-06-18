@@ -80,7 +80,6 @@
 import  {IntroShop} from '@/components/store'
 import {Intersection} from '@/components/base'
 // import About from "@/components/About"
-import {KinesisElement, KinesisContainer} from 'vue-kinesis'
 import {mapActions, mapState, mapMutations} from 'vuex'
 import {GET_REFERENCE} from "@/store/action-types"
 import Reference from "@/store/modules/reference"
@@ -96,8 +95,6 @@ export default {
     Intro: IntroShop,
     // About,
     // Gallery,
-    KinesisContainer,
-    KinesisElement,
     Intersection,
     // FullScreenImage
   },

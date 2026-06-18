@@ -48,14 +48,9 @@
 </template>
 
 <script>
-import{KinesisElement, KinesisContainer} from 'vue-kinesis'
 
 export default {
   name: "fruit",
-  components: {
-    KinesisContainer,
-    KinesisElement
-  },
   props: {
     index: {
       type: Number,
@@ -96,4 +91,3 @@ export default {
 <style scoped>
 
 </style>
-if(index === 0 || index === 1 || index === 3)

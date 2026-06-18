@@ -51,14 +51,9 @@
 </template>
 
 <script>
-import{KinesisElement, KinesisContainer} from 'vue-kinesis'
 
 export default {
   name: "season",
-  components:{
-    KinesisContainer,
-    KinesisElement
-  },
   props:{
     jahreszeit:{
       type: String,
