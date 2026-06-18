@@ -3,8 +3,6 @@
     <v-main id="root">
       <v-container class="pa-0" fluid>
         <!--First Section-->
-        <kinesis-container>
-          <kinesis-element :strength="0.2" type="scale">
             <v-img
                 v-if="currentTheme"
                 :height="$vuetify.breakpoint.mdAndUp ? 750 : 400"
@@ -14,6 +12,7 @@
                 gradient="to top, rgba(0,0,0,0), rgba(0,0,0,0.40)"
                 style="padding-bottom: 50px"
             >
+              <kinesis-container>
               <kinesis-element :strength="0.6" name="title" type="scale">
                 <!--                <v-img
                                     :src="white"
@@ -29,13 +28,11 @@
                 >
                 </v-img>
               </kinesis-element>
+              </kinesis-container>
             </v-img>
-          </kinesis-element>
-        </kinesis-container>
         <!--Second Section-->
         <intersection :on-intersect="onIntersect" :threshold="threshold">
           <intro :inhalt="INTRO_INHALT"/>
-          <intro-shop/>
         </intersection>
         <!--Third Section-->
         <v-parallax
@@ -56,7 +53,7 @@
         </v-parallax>
         <!--Fourth Section-->
         <intersection :on-intersect="onIntersect" :threshold="threshold">
-          <about :titel="ABOUT_TITLE" :inhalt="ABOUT_INHALT"/>
+          <about :titel="ABOUT_TITLE" :inhalt="ABOUT_INHALT" :galerie="ABOUT_GALERIE"/>
         </intersection>
         <!--Fifth Section-->
         <v-img
@@ -80,7 +77,6 @@
 
 <script>
 import {Gallery, FullScreenImage, Intro} from '@/components/home'
-import IntroShop from '@/components/store/Intro-Shop.vue'
 import About from "@/components/About"
 import {KinesisElement, KinesisContainer} from 'vue-kinesis'
 import {mapActions, mapState, mapMutations} from 'vuex'
@@ -101,20 +97,20 @@ export default {
     Gallery,
     KinesisContainer,
     KinesisElement,
-    IntroShop,
     Intersection,
     FullScreenImage
   },
   data: () => ({
     // gif_logo: require('@/assets/geometry/monshiners_logo_animated.png'),
-    white: require('@/assets/geometry/monshiners_schriftzug_weiss.png'),
-    black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png'),
+    white: require('@/assets/geometry/Monshiners_Schriftmarke_white.png'),
+    black: require('@/assets/geometry/Monshiners_Schriftmarke_Black.png'),
     lazy: require('@/assets/img/monshiners_obstbrand_logo.jpg'),
     t: null,
     loading: false,
     INTRO_INHALT: '',
     ABOUT_TITLE: '',
-    ABOUT_INHALT: ''
+    ABOUT_INHALT: '',
+    ABOUT_GALERIE: '',
   }),
   methods: {
     ...mapActions(STORE_REFERENCE_NAMESPACE, {
@@ -137,7 +133,8 @@ export default {
     ...mapState(['socials']),
     ...mapState(STORE_THEME_NAMESPACE, ['currentTheme']),
     ...mapState(STORE_REFERENCE_NAMESPACE, [
-      'bestandteile'
+      'bestandteile',
+      'galerie'
     ]),
     isIntersecting: {
       get() {
@@ -161,12 +158,16 @@ export default {
     this.INTRO_INHALT = this.bestandteile[0].inhalt[0].content[0].value
     this.ABOUT_TITLE = this.bestandteile[1].titel
     this.ABOUT_INHALT = this.bestandteile[1].inhalt[0].content[0].value
+    this.ABOUT_GALERIE = this.galerie
+
+
 
     this.$eventHub.$on('locale-changed', async () => {
       await this.getReference({locale: i18n.locale, id: id})
       this.INTRO_INHALT = this.bestandteile[0].inhalt[0].content[0].value
       this.ABOUT_TITLE = this.bestandteile[1].titel
       this.ABOUT_INHALT = this.bestandteile[1].inhalt[0].content[0].value
+      this.ABOUT_GALERIE = this.galerie
     })
 
     this.loading = false

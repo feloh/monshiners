@@ -6,7 +6,7 @@
     </span>
     </template>
     <template v-slot:text>
-      <span>Monshiners' GbR</span>
+      <span>Monshiners' Schabau - Felix Lohmann</span>
       <p>
       <span>Frohnstr.9</span><br>
       <span>40789 Monheim</span>

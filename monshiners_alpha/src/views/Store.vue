@@ -103,8 +103,8 @@ export default {
   },
   data: () => ({
     // gif_logo: require('@/assets/geometry/monshiners_logo_animated.png'),
-    white: require('@/assets/geometry/monshiners_schriftzug_weiss.png'),
-    black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png'),
+    white: require('@/assets/geometry/Monshiners_Schriftmarke_white.png'),
+    black: require('@/assets/geometry/Monshiners_Schriftmarke_Black.png'),
     lazy: require('@/assets/img/monshiners_obstbrand_logo.jpg'),
     t: null,
     loading: false,

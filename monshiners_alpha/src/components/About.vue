@@ -1,5 +1,4 @@
 <template>
-  <kinesis-container event="scroll">
   <v-container fluid class="pa-15">
     <v-row justify-md="space-around">
       <v-col
@@ -8,14 +7,7 @@
           order-md="1"
           align-self="center"
       >
-        <kinesis-element :strength=30 type="translate" axis="x" :max-x="10"	 >
-        <v-img
-            :src="skizze"
-            :height="$vuetify.breakpoint.mdAndUp ? 500 : 200"
-            contain
-            class="mx-auto"
-        />
-        </kinesis-element>
+          <gallery :src="galerie"/>
       </v-col>
       <v-col
           md="6"
@@ -23,7 +15,6 @@
           order-md="2"
           align-self="center"
       >
-        <kinesis-element :strength=-30 type="translate" axis="x" :max-x="10">
             <v-card
                 max-width="750px"
                 class="mx-auto"
@@ -35,41 +26,43 @@
                   class="mx-auto"
               />
               <v-card-subtitle
-                  class="text-md-h6 text-uppercase font-weight-medium mx-auto text-center"
+                  class="text-md-h6 text-uppercase font-weight-regular mx-auto text-center"
               >
                 {{titel}}
               </v-card-subtitle>
               <v-card-text
-                  class="font-weight-medium text-md-subtitle-1"
+                  class="font-weight- text-md-subtitle-1 text-center"
               >
                 {{inhalt}}
               </v-card-text>
             </v-card>
-        </kinesis-element>
       </v-col>
     </v-row>
   </v-container>
-  </kinesis-container>
 </template>
 
 <script>
-import{KinesisElement, KinesisContainer} from 'vue-kinesis'
+
+import {Gallery} from "@/components/home";
 
 export default {
   name: "Collage",
   components: {
-    KinesisContainer,
-    KinesisElement
+    Gallery,
   },
   data: () => ({
-    black: require('@/assets/geometry/monshiners_schriftzug_schwarz.png'),
+    black: require('@/assets/geometry/Monshiners_Schriftmarke_Black.png'),
     logo: require('@/assets/img/monshiners_logo.jpg'),
-    skizze: require('@/assets/img/Skizze_Prozess.jpg')
+    skizze: require('@/assets/img/Skizze_Prozess.jpg'),
   }),
   props: {
     inhalt: {
       type: String,
       default: (() => '')
+    },
+    galerie: {
+      type: Array,
+      default: (() => [])
     },
     titel: {
       type: String,
