@@ -66,3 +66,8 @@ body {
   background: transparent;
 }
 </style>
+<style>
+.white--text { color: #fff !important; }
+.black--text, .text--black { color: #000 !important; }
+.no-uppercase { text-transform: none !important; }
+</style>

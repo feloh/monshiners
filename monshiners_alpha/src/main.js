@@ -1,21 +1,28 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
+import mitt from 'mitt'
 import App from './App.vue'
 import vuetify from './plugins/vuetify'
 import router from './router'
 import store from './store'
 import i18n from './plugins/i18n'
-import JsCookie from 'js-cookie'
-import VueKinesis from 'vue-kinesis'
-import VueMeta from 'vue-meta'
-Vue.prototype.$eventHub = new Vue() // Global event bus
+import VueKinesis from './plugins/kinesis'
+import { createMetaManager } from './plugins/meta'
+import 'vuetify/styles'
 
-Vue.config.productionTip = false
-Vue.use(JsCookie, VueKinesis,VueMeta)
+const app = createApp(App)
+const eventHub = mitt()
 
-new Vue({
-  vuetify,
-  router,
-  store,
-  i18n,
-  render: h => h(App)
-}).$mount('#app')
+app.config.globalProperties.$eventHub = {
+  $on: eventHub.on,
+  $off: eventHub.off,
+  $emit: eventHub.emit,
+}
+
+app
+  .use(vuetify)
+  .use(router)
+  .use(store)
+  .use(i18n)
+  .use(VueKinesis)
+  .use(createMetaManager())
+  .mount('#app')

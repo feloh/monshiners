@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import i18n from '@//plugins/i18n'
+import i18n from '@/plugins/i18n'
 import {mapState, mapMutations} from "vuex"
 
 export default {
@@ -56,7 +56,7 @@ export default {
   methods: {
     ...mapMutations(['setIntersection']),
     changeLocale (locale) {
-      i18n.locale = locale
+      i18n.global.locale = locale
       this.$eventHub.$emit('locale-changed')
     },
   },

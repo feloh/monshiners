@@ -4,7 +4,7 @@
       <v-img
           :src="`${src}?w=450&fl=progressive&q=100`"
           :lazy-src="`${src}?w=450&fl=progressive&q=100`"
-          :width="$vuetify.breakpoint.mdAndUp ? 250 : 100"
+          :width="$vuetify.display.mdAndUp ? 250 : 100"
           class="mx-auto"
       />
       <p class="d-flex flex-column" v-if="description">
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {KinesisElement, KinesisContainer} from 'vue-kinesis'
+import {KinesisElement, KinesisContainer} from '@/plugins/kinesis'
 
 export default {
 name: "Bottle",

@@ -56,7 +56,7 @@
 <script>
 import Language from '@/components/appbar/Language'
 import Social from "@/components/appbar/Social"
-import i18n from '@//plugins/i18n'
+import i18n from '@/plugins/i18n'
 import {mapState} from "vuex"
 
 export default {
@@ -75,7 +75,7 @@ name: "TooYoung",
   computed: {
     ...mapState(['socials']),
   link(){
-    return this.href[i18n.locale]
+    return this.href[i18n.global.locale]
   }
   }
 }

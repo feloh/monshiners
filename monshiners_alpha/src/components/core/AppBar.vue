@@ -18,9 +18,9 @@
       <v-icon>mdi-menu</v-icon>
     </v-btn>
     <v-row no-gutters>
-      <Language v-if="$vuetify.breakpoint.mdAndUp"/>
+      <Language v-if="$vuetify.display.mdAndUp"/>
       <v-spacer></v-spacer>
-      <switcher v-if="$vuetify.breakpoint.mdAndUp"></switcher>
+      <switcher v-if="$vuetify.display.mdAndUp"></switcher>
 <!--      <v-col cols="auto" align-self="center">
           <v-btn
               href="https://monshiners.odoo.com/shop"
